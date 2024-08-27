@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block titulo %} Lista de articulos {% endblock %}
+
+{% block contenido %} 
+
+<div class="card">
+  <div class="card-header">Listar articulos</div>
+  <div class="card-body">
+    <h4 class="card-title">Articulos</h4>
+
+    <div
+      class="table-responsive"
+    >
+      <table
+        class="table table-primary"
+      >
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="">
+            <td scope="row">Cargador</td>
+            <td>Cargador tipo C Only</td>
+            <td>$3000</td>
+            <td>Editar | Borrar</td>
+          </tr>
+          <tr class="">
+            <td scope="row">Item</td>
+            <td>Item</td>
+            <td>Item</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+</div>
+
+
+ {% endblock %}
