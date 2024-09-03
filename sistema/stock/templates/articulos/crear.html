@@ -3,69 +3,13 @@
 {% block titulo %} Agregar nuevo articulo {% endblock %}
 
 {% block contenido %}  
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Formulario para agregar nuevo articulo</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-  }
-  label, input, button {
-    margin: 5px;
-  }
-  button {
-    padding: 5px 15px;
-    margin-top: 10px;
-  }
-  .green-button {
-    background-color: #4CAF50; /* Green */
-    color: white;
-  }
-  .red-button {
-    background-color: #f44336; /* Red */
-    color: white;
-  }
-</style>
-</head>
-<body>
 
-<h2>MODIFICACION DE PRODUCTOS</h2>
-
-<form>
-  <label for="codigo">CODIGO:</label>
-  <input type="text" id="codigo" name="codigo" value="1"><br>
-
-  <label for="descripcion">DESCRIPCION:</label>
-  <input type="text" id="descripcion" name="descripcion" value="MOUSE INALAMBRICO"><br>
-
-  <label for="marca">MARCA:</label>
-  <input type="text" id="marca" name="marca" value="LOGITECH"><br>
-
-  <label for="proveedor">PROVEEDOR:</label>
-  <input type="text" id="proveedor" name="proveedor" value="PIXER"><br>
-
-  <label for="stock">STOCK:</label>
-  <input type="number" id="stock" name="stock" value="4"><br>
-
-  <label for="stock_min">STOCK MIN:</label>
-  <input type="number" id="stock_min" name="stock_min" value="1"><br>
-
-  <label for="costo">COSTO:</label>
-  <input type="number" id="costo" name="costo" value="756"><br>
-
-  <label for="ganancia">% GANANCIA:</label>
-  <input type="number" id="ganancia" name="ganancia" value="30"><br>
-
-  <label for="precio_venta">PRECIO VENTA:</label>
-  <input type="number" id="precio_venta" name="precio_venta" value="1000"><br>
-
-  <button type="submit" class="green-button">GUARDAR</button>
-  <button type="button" class="red-button">CANCELAR</button>
-</form>
-
-</body>
-</html>
-
-{& endblock %}
+<div class="card">
+  <div class="card-header">Crear un articulo</div>
+  <div class="card-body">
+    <h4 class="card-title">Descripcion</h4>
+    {% include "articulos/form.html" %}
+  </div>
+  <div class="card-footer text-muted">Footer</div>
+</div>
+{% endblock %}

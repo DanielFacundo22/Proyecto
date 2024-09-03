@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login
-from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -10,8 +9,12 @@ def apertura_caja(request):
     return render(request, "apertura_caja.html")
 def inicio(request):
     return render (request, "inicio.html")
-def mostrar(request):
+def mostrar_articulos(request):
     return render(request, "articulos/mostrar.html")
+def editar_articulos(request):
+    return render(request, "articulos/editar.html")
+def crear_articulos(request):
+    return render(request, "articulos/crear.html")
 def mostrar_clientes(request):
     return render(request, "mostrar_clientes.html")
 def procesar_login(request):
