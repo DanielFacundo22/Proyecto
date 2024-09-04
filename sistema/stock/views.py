@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .models import Proveedor
 # Create your views here.
     
 def procesar_login(request):    
@@ -21,26 +22,31 @@ def apertura_caja(request):
     return render(request, "apertura_caja.html")
 def inicio(request):
     return render (request, "inicio.html")
+##CRUD Articulos
 def mostrar_articulos(request):
     return render(request, "articulos/mostrar.html")
 def editar_articulos(request):
     return render(request, "articulos/editar.html")
 def crear_articulos(request):
     return render(request, "articulos/crear.html")
+##CRUD Clientes
 def mostrar_clientes(request):
     return render(request, "clientes/mostrar.html")
 def editar_clientes(request):
     return render(request, "clientes/editar.html")
 def crear_clientes(request):
     return render(request,"clientes/crear.html")
+##CRUD Empleados
 def mostrar_empleados(request):
     pass
 def editar_empleados(request):
     pass
 def crear_empleados(request):
     return render(request, "proveedores/crear.html")
+##CRUD Proveedores
 def mostrar_proveedores(request):
-    return render(request, "proveedores/mostrar.html")
+    proveedor= Proveedor.objects.all()
+    return render(request, "proveedores/mostrar.html",{"proveedores": proveedor})
 def editar_proveedores(request):
     return render(request, "proveedores/editar.html")
 def crear_proveedores(request):

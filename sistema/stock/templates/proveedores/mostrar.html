@@ -16,24 +16,24 @@
             <th scope="col">ID</th>
             <th scope="col">Nombre</th>
             <th scope="col">CUIT</th>
-            <th scope="col">Direccion</th>
-            <th scope="col">Telefono</th>
-            <th scope="col">Correo</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
+
+          {% for proveedor in proveedores %}
+
           <tr class="">
             <td scope="row">1</td>
-            <td>Pixer</td>
-            <td>$30-8787-764</td>
-            <td>$Salta</td>
-            <td>$387</td>
-            <td>blbabla@</td>
+            <td>{{ proveedor.nombre_prov }}</td>
+            <td>{{ proveedor.cuit_prov }}</td>
             <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_proveedores" %}" role="button">Editar</a>
               | <a name="" id="" class="btn btn-danger" href="#" role="button">Borrar</a>
             </td>
           </tr>
+
+          {% endfor %}
+
         </tbody>
       </table>
     </div>
