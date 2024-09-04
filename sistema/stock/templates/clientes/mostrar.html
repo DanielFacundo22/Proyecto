@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block titulo %} Lista de articulos {% endblock %}
+
+{% block contenido %}
+
+<div class="card">
+  <div class="card-header">Listar Clientes</div>
+  <div class="card-body">
+    <h4 class="card-title">Clientes</h4>
+
+    <div class="table-responsive">
+      <table class="table table-primary">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="">
+            <td scope="row">1</td>
+            <td>Agustin</td>
+            <td>Guitian</td>
+            <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_clientes" %}" role="button">Editar</a>
+              | <a name="" id="" class="btn btn-danger" href="#" role="button">Borrar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div><br>
+<a
+  name="agregar" class="btn btn-success" href="{% url "crear_articulos" %}" role="button">Agregar articulo</a
+>
+
+</div>
+
+
+
+{% endblock %}

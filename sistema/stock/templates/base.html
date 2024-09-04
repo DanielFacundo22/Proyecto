@@ -22,11 +22,13 @@
     <body>
         <nav class="navbar navbar-expand navbar-light bg-light">
             <div class="nav navbar-nav">
+
+                <a class="nav-item nav-link active" href="{% url "inicio" %}">Inicio</a>
                 <a class="nav-item nav-link active" href="{% url "mostrar" %}">Articulos</a>
                 <a class="nav-item nav-link" href="{% url "mostrar_clientes" %}">Clientes</a>
                 <a class="nav-item nav-link" href="#">Compras</a>    
                 <a class="nav-item nav-link" href="#">Ventas</a>    
-                <a class="nav-item nav-link" href="#">Proveedores</a>    
+                <a class="nav-item nav-link" href="{% url "mostrar_proveedores" %}">Proveedores</a>    
                 <a class="nav-item nav-link" href="#">Cerrar Caja</a>    
             </div>
         </nav>
