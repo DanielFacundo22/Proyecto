@@ -14,16 +14,17 @@
         <thead>
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Precio</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
+          {% for empleado in empleados %}
           <tr class="">
-            <td scope="row">Cargador</td>
-            <td>Cargador tipo C Only</td>
-            <td>$3000</td>
+            <td scope="row">{{ empleado.id_emplead }}</td>
+            <td>{{ empleado.nombre_emplead }}</td>
+            <td>{{ empleado.apellido_emplead }}</td>
             <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_articulos" %}" role="button">Editar</a>
               | <a name="" id="" class="btn btn-danger" href="#" role="button">Borrar</a>
             </td>
@@ -33,6 +34,7 @@
             <td>Item</td>
             <td>Item</td>
           </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>

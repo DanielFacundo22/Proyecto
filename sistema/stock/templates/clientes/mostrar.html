@@ -20,14 +20,16 @@
           </tr>
         </thead>
         <tbody>
+          {% for cliente in clientes %}
           <tr class="">
-            <td scope="row">1</td>
-            <td>Agustin</td>
-            <td>Guitian</td>
+            <td scope="row">{{ cliente.id_cli }}</td>
+            <td>{{ cliente.nombre_cli }}</td>
+            <td>{{ cliente.apellido_cli }}</td>
             <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_clientes" %}" role="button">Editar</a>
-              | <a name="" id="" class="btn btn-danger" href="#" role="button">Borrar</a>
+              | <a name="borrar" class="btn btn-danger" href="#" role="button">Borrar</a>
             </td>
           </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
@@ -35,7 +37,7 @@
   </div>
 </div><br>
 <a
-  name="agregar" class="btn btn-success" href="{% url "crear_articulos" %}" role="button">Agregar articulo</a
+  name="agregar" class="btn btn-success" href="{% url "crear_articulos" %}" role="button">Agregar cliente</a
 >
 
 </div>

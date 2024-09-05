@@ -126,3 +126,9 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# settings.py
+
+# URL de inicio de sesión para usuarios no autenticados
+LOGIN_URL = '/procesar_login/'  # Ajusta esta URL según tu configuración de la página de login
+LOGIN_URL = '/apertura_caja/'  # Ajusta esta URL según tu configuración de la página de login
+
