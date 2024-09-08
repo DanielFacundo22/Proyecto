@@ -1,10 +1,14 @@
-<form enctype="multipart/form-data" method="post">
+{% extends "base.html" %}
 
-    <div class="mb-3">
-        <label for="" class="form-label">Nombre</label>
-        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Nombre" />
-        <small id="helpId" class="form-text text-muted">Help text</small>
-    </div>
+{% block titulo %} Agregar nuevo empleado {% endblock %}
 
+{% block contenido %}  
 
-</form>
+<div class="card">
+  <div class="card-header">Añadir empleado</div>
+  <div class="card-body">
+    <h4 class="card-title">Nombre</h4>
+    {% include "empleados/form.html" %}
+  </div>
+</div>
+{% endblock %}

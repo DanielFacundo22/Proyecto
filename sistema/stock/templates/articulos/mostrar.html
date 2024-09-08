@@ -1,38 +1,35 @@
 {% extends "base.html" %}
 
-{% block titulo %} Lista de articulos {% endblock %}
+{% block titulo %} Lista de Productos {% endblock %}
 
 {% block contenido %}
 
 <div class="card">
-  <div class="card-header">Listar articulos</div>
+  <div class="card-header">Listar productos</div>
   <div class="card-body">
-    <h4 class="card-title">Articulos</h4>
+    <h4 class="card-title">Productos</h4>
 
     <div class="table-responsive">
       <table class="table table-primary">
         <thead>
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Descripcion</th>
+            <th scope="col">Codigo</th>
+            <th scope="col">Nombre</th>
             <th scope="col">Precio</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
+          {% for producto in productos %}
           <tr class="">
-            <td scope="row">Cargador</td>
-            <td>Cargador tipo C Only</td>
-            <td>$3000</td>
+            <td scope="row">{{ producto.id_prod }}</td>
+            <td>{{ producto.nombre_prod }}</td>
+            <td>{{ producto.precio_prod }}</td>
             <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_articulos" %}" role="button">Editar</a>
               | <a name="" id="" class="btn btn-danger" href="#" role="button">Borrar</a>
             </td>
           </tr>
-          <tr class="">
-            <td scope="row">Item</td>
-            <td>Item</td>
-            <td>Item</td>
-          </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
@@ -40,7 +37,7 @@
   </div>
 </div><br>
 <a
-  name="agregar" class="btn btn-success" href="{% url "crear_articulos" %}" role="button">Agregar articulo</a
+  name="agregar" class="btn btn-success" href="{% url "crear_articulos" %}" role="button">Agregar producto</a
 >
 
 </div>

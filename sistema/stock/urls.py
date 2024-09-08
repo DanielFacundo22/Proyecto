@@ -8,9 +8,9 @@ urlpatterns = [
     path('', RedirectView.as_view(url='procesar_login/', permanent=True)),
     path('apertura_caja/', views.apertura_caja, name='apertura_caja'),
     path('inicio/', views.inicio, name='inicio'),
-    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+    path('logout/', LogoutView.as_view(next_page="login"), name='logout'),
     ##CRUD Articulos
-    path('mostrar_articulos/', views.mostrar_articulos, name='mostrar'),
+    path('mostrar_articulos/', views.mostrar_articulos, name='mostrar_articulos'),
     path("editar_articulos", views.editar_articulos, name="editar_articulos"),
     path("crear_articulos", views.crear_articulos, name="crear_articulos"),
 
@@ -26,4 +26,6 @@ urlpatterns = [
 
     ##CRUD Empleados
     path("mostrar_empleados",views.mostrar_empleados, name="mostrar_empleados"),
+    path("editar_empleados", views.editar_empleados, name="editar_empleados"),
+    path("crear_empleados", views.crear_empleados, name="crear_empleados"),
 ]

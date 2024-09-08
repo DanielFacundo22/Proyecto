@@ -1,10 +1,26 @@
 <form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
 
-    <div class="mb-3">
-        <label for="" class="form-label">Nombre</label>
-        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Nombre" />
-        <small id="helpId" class="form-text text-muted">Help text</small>
-    </div>
+    {% for campo in formulario %}
+     <div class="mb-3">
 
+        <label for="" class="form-label">{{campo.label}}</label>
 
+        <input type="text" 
+        class="form-control" 
+        name="{{campo.name}}" 
+        id="" 
+        aria-describedby="helpId" 
+        placeholder="{{campo.label}}" />
+
+     </div>
+    {% endfor %}
+    <input
+        name=""
+        id=""
+        class="btn btn-success"
+        type="submit"
+        value="Guardar"
+    />
+    
 </form>

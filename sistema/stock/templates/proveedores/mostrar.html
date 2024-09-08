@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block titulo %} Lista de articulos {% endblock %}
+{% block titulo %} Lista de Proveedores {% endblock %}
 
 {% block contenido %}
 
 <div class="card">
-  <div class="card-header">Listar Proveedores</div>
+  <div class="card-header">Listar de Proveedores</div>
   <div class="card-body">
     <h4 class="card-title">Proveedores</h4>
 
@@ -24,7 +24,7 @@
           {% for proveedor in proveedores %}
 
           <tr class="">
-            <td scope="row">1</td>
+            <td scope="row">{{ proveedor.id_prov }}</td>
             <td>{{ proveedor.nombre_prov }}</td>
             <td>{{ proveedor.cuit_prov }}</td>
             <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_proveedores" %}" role="button">Editar</a>

@@ -4,10 +4,8 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-from .models import Proveedor
-from .models import Clientes
-from .models import Empleados
-from .forms import ProveedorForm 
+from .models import *
+from .forms import *
 # Create your views here.
     
 def procesar_login(request):    
@@ -32,11 +30,16 @@ def inicio(request):
 
 ##CRUD Articulos
 def mostrar_articulos(request):
-    return render(request, "articulos/mostrar.html")
+    producto=Productos.objects.all()
+    return render(request, "articulos/mostrar.html",{"productos":producto})
 def editar_articulos(request):
     return render(request, "articulos/editar.html")
 def crear_articulos(request):
-    return render(request, "articulos/crear.html")
+    formulario = ProductosForm(request.POST or None)
+    if formulario.is_valid():
+        formulario.save()
+        return redirect("mostrar_articulos")
+    return render(request, "articulos/crear.html", {"formulario": formulario})
 ##CRUD Clientes
 def mostrar_clientes(request):
     cliente=Clientes.objects.all()
@@ -44,23 +47,31 @@ def mostrar_clientes(request):
 def editar_clientes(request):
     return render(request, "clientes/editar.html")
 def crear_clientes(request):
-    return render(request,"clientes/crear.html")
+    formulario = ClientesForm(request.POST or None)
+    if formulario.is_valid():
+        formulario.save()
+        return redirect("mostrar_clientes")
+    return render(request,"clientes/crear.html",{"formulario": formulario})
 ##CRUD Empleados
 def mostrar_empleados(request):
     empleado=Empleados.objects.all()
     return render(request,"empleados/mostrar.html",{"empleados":empleado})
 def editar_empleados(request):
-    pass
+    return render(request, "empleados/editar.html")
 def crear_empleados(request):
-    return render(request, "proveedores/crear.html")
+    formulario = EmpleadosForm(request.POST or None)
+    if formulario.is_valid():
+        formulario.save()
+        return redirect("mostrar_empleados")
+    return render(request, "empleados/crear.html",{"formulario": formulario})
 ##CRUD Proveedores
 def mostrar_proveedores(request):
-    proveedor= Proveedor.objects.all()
+    proveedor= Proveedores.objects.all()
     return render(request, "proveedores/mostrar.html",{"proveedores": proveedor})
 def editar_proveedores(request):
     return render(request, "proveedores/editar.html")
 def crear_proveedores(request):
-    formulario = ProveedorForm(request.POST or None)
+    formulario = ProveedoresForm(request.POST or None)
     if formulario.is_valid ():
      formulario.save()
      return redirect("mostrar_proveedores")

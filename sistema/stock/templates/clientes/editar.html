@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    asdasd
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block titulo %} Agregar cliente {% endblock %}
+
+{% block contenido %}  
+
+<div class="card">
+  <div class="card-header">Añadir cliente</div>
+  <div class="card-body">
+    <h4 class="card-title">Descripcion</h4>
+    {% include "clientes/form.html" %}
+  </div>
+</div>
+{% endblock %}

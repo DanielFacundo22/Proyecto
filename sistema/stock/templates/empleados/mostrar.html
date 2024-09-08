@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
-{% block titulo %} Lista de articulos {% endblock %}
+{% block titulo %} Lista de empleados {% endblock %}
 
 {% block contenido %}
 
 <div class="card">
-  <div class="card-header">Listar articulos</div>
+  <div class="card-header">Listar empleados</div>
   <div class="card-body">
-    <h4 class="card-title">Articulos</h4>
+    <h4 class="card-title">Empleados</h4>
 
     <div class="table-responsive">
       <table class="table table-primary">
         <thead>
           <tr>
-            <th scope="col">ID</th>
+            <th scope="col">Nro</th>
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
             <th scope="col">Acciones</th>
@@ -25,14 +25,9 @@
             <td scope="row">{{ empleado.id_emplead }}</td>
             <td>{{ empleado.nombre_emplead }}</td>
             <td>{{ empleado.apellido_emplead }}</td>
-            <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_articulos" %}" role="button">Editar</a>
+            <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_empleados" %}" role="button">Editar</a>
               | <a name="" id="" class="btn btn-danger" href="#" role="button">Borrar</a>
             </td>
-          </tr>
-          <tr class="">
-            <td scope="row">Item</td>
-            <td>Item</td>
-            <td>Item</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -42,7 +37,7 @@
   </div>
 </div><br>
 <a
-  name="agregar" class="btn btn-success" href="{% url "crear_articulos" %}" role="button">Agregar articulo</a
+  name="agregar" class="btn btn-success" href="{% url "crear_empleados" %}" role="button">Agregar empleado</a
 >
 
 </div>

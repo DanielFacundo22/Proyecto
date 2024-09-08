@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block titulo %} Agregar nuevo empleado {% endblock %}
+
+{% block contenido %}  
+
+<div class="card">
+  <div class="card-header">Añadir proveedor</div>
+  <div class="card-body">
+    <h4 class="card-title">Descripcion</h4>
+    {% include "empleados/form.html" %}
+  </div>
+  <div class="card-footer text-muted">Footer</div>
+</div>
+{% endblock %}
