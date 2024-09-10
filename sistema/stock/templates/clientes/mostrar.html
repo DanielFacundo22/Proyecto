@@ -26,8 +26,12 @@
             <td>{{ cliente.nombre_cli }}</td>
             <td>{{ cliente.apellido_cli }}</td>
             <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_clientes" %}" role="button">Editar</a>
-              | <a name="borrar" class="btn btn-danger" href="#" role="button">Borrar</a>
+              | <a name="borrar" class="btn btn-danger" href="{% url "eliminar_clientes" cliente.id_cli %}" role="button">Borrar</a>
             </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4" class="text-center">No existen clientes</td>
           </tr>
           {% endfor %}
         </tbody>

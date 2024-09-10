@@ -26,8 +26,12 @@
             <td>{{ producto.nombre_prod }}</td>
             <td>{{ producto.precio_prod }}</td>
             <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_articulos" %}" role="button">Editar</a>
-              | <a name="" id="" class="btn btn-danger" href="#" role="button">Borrar</a>
+              | <a name="" id="" class="btn btn-danger" href="{% url "eliminar_producto" producto.id_prod %}" role="button">Borrar</a>
             </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4" class="text-center">No hay artículos disponibles.</td>
           </tr>
           {% endfor %}
         </tbody>

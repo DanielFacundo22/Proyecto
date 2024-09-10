@@ -28,6 +28,7 @@ def apertura_caja(request):
 def inicio(request):
     return render (request, "inicio.html")
 
+
 ##CRUD Articulos
 def mostrar_articulos(request):
     producto=Productos.objects.all()
@@ -37,9 +38,16 @@ def editar_articulos(request):
 def crear_articulos(request):
     formulario = ProductosForm(request.POST or None)
     if formulario.is_valid():
-        formulario.save()
-        return redirect("mostrar_articulos")
+     formulario.save()
+     return redirect("mostrar_articulos")
     return render(request, "articulos/crear.html", {"formulario": formulario})
+##Borrar_Articulos
+def eliminar_productos(request,id_prod):
+    producto = Productos.objects.get(id_prod=id_prod)
+    producto.delete()
+    return redirect("mostrar_articulos")
+
+
 ##CRUD Clientes
 def mostrar_clientes(request):
     cliente=Clientes.objects.all()
@@ -52,6 +60,13 @@ def crear_clientes(request):
         formulario.save()
         return redirect("mostrar_clientes")
     return render(request,"clientes/crear.html",{"formulario": formulario})
+##Borrar_clientes
+def eliminar_clientes(request, id_cli):
+    cliente = Clientes.objects.get(id_cli=id_cli)
+    cliente.delete()
+    return redirect("mostrar_clientes")
+
+
 ##CRUD Empleados
 def mostrar_empleados(request):
     empleado=Empleados.objects.all()
@@ -64,6 +79,12 @@ def crear_empleados(request):
         formulario.save()
         return redirect("mostrar_empleados")
     return render(request, "empleados/crear.html",{"formulario": formulario})
+##Borrar_empleados
+def eliminar_empleados(request, id_emplead):
+    empleado = Empleados.objects.get(id_emplead=id_emplead)
+    empleado.delete()
+    return redirect("mostrar_empleados")
+
 ##CRUD Proveedores
 def mostrar_proveedores(request):
     proveedor= Proveedores.objects.all()
@@ -77,3 +98,12 @@ def crear_proveedores(request):
      return redirect("mostrar_proveedores")
     return render(request, "proveedores/crear.html", {"formulario": formulario})
 
+##Borrar_proveedores
+def eliminar_proveedores(request,id_prov):
+    proveedor = Proveedores.objects.get(id_prov=id_prov)
+    proveedor.delete()
+    return redirect("mostrar_proveedores")
+
+
+def mostrar_compras(request):
+    return render(request,"compras/lista_compras.html")

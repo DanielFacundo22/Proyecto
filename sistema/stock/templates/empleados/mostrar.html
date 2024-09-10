@@ -26,8 +26,12 @@
             <td>{{ empleado.nombre_emplead }}</td>
             <td>{{ empleado.apellido_emplead }}</td>
             <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_empleados" %}" role="button">Editar</a>
-              | <a name="" id="" class="btn btn-danger" href="#" role="button">Borrar</a>
+              | <a name="" id="" class="btn btn-danger" href="{% url "eliminar_empleado" empleado.id_emplead %}" role="button">Borrar</a>
             </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4" class="text-center">No existen empleados</td>
           </tr>
           {% endfor %}
         </tbody>
