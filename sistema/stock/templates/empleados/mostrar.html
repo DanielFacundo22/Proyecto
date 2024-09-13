@@ -13,7 +13,7 @@
       <table class="table table-primary">
         <thead>
           <tr>
-            <th scope="col">Nro</th>
+            <th scope="col">Codigo</th>
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
             <th scope="col">Acciones</th>
@@ -25,8 +25,8 @@
             <td scope="row">{{ empleado.id_emplead }}</td>
             <td>{{ empleado.nombre_emplead }}</td>
             <td>{{ empleado.apellido_emplead }}</td>
-            <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_empleados" %}" role="button">Editar</a>
-              | <a name="" id="" class="btn btn-danger" href="{% url "eliminar_empleado" empleado.id_emplead %}" role="button">Borrar</a>
+            <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_empleados" empleado.id_emplead %}" role="button">Editar</a>
+              | <a name="" id="" class="btn btn-danger" href="{% url "eliminar_empleados" empleado.id_emplead %}" role="button">Borrar</a>
             </td>
           </tr>
           {% empty %}

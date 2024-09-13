@@ -26,15 +26,18 @@ def apertura_caja(request):
     return render(request, "apertura_caja.html")
 @login_required
 def inicio(request):
-    return render (request, "inicio.html")
+    producto=Productos.objects.all()
+    return render (request, "inicio.html",{"productos":producto})
 
 
 ##CRUD Articulos
 def mostrar_articulos(request):
     producto=Productos.objects.all()
     return render(request, "articulos/mostrar.html",{"productos":producto})
-def editar_articulos(request):
-    return render(request, "articulos/editar.html")
+def editar_articulos(request,id_prod):
+    producto=Productos.objects.get(id_prod=id_prod)
+    formulario = ProductosForm(request.POST or None, request.FILES or None, instance=producto)
+    return render(request, "articulos/editar.html", {"formulario": formulario})
 def crear_articulos(request):
     formulario = ProductosForm(request.POST or None)
     if formulario.is_valid():
@@ -46,14 +49,14 @@ def eliminar_productos(request,id_prod):
     producto = Productos.objects.get(id_prod=id_prod)
     producto.delete()
     return redirect("mostrar_articulos")
-
-
 ##CRUD Clientes
 def mostrar_clientes(request):
     cliente=Clientes.objects.all()
     return render(request, "clientes/mostrar.html",{"clientes":cliente})
-def editar_clientes(request):
-    return render(request, "clientes/editar.html")
+def editar_clientes(request,id_cli):
+    cliente=Clientes.objects.get(id_cli=id_cli)
+    formulario=ClientesForm(request.POST or None, request.FILES or None, instance=cliente)
+    return render(request, "clientes/editar.html", {"formulario": formulario})
 def crear_clientes(request):
     formulario = ClientesForm(request.POST or None)
     if formulario.is_valid():
@@ -71,8 +74,10 @@ def eliminar_clientes(request, id_cli):
 def mostrar_empleados(request):
     empleado=Empleados.objects.all()
     return render(request,"empleados/mostrar.html",{"empleados":empleado})
-def editar_empleados(request):
-    return render(request, "empleados/editar.html")
+def editar_empleados(request,id_emplead):
+    empleado = Empleados.objects.get(id_emplead=id_emplead)
+    formulario = EmpleadosForm(request.POST or None, request.FILES or None,instance=empleado)
+    return render(request, "empleados/editar.html",{"formulario":formulario})
 def crear_empleados(request):
     formulario = EmpleadosForm(request.POST or None)
     if formulario.is_valid():
@@ -89,8 +94,10 @@ def eliminar_empleados(request, id_emplead):
 def mostrar_proveedores(request):
     proveedor= Proveedores.objects.all()
     return render(request, "proveedores/mostrar.html",{"proveedores": proveedor})
-def editar_proveedores(request):
-    return render(request, "proveedores/editar.html")
+def editar_proveedores(request,id_prov):
+    proveedor = Proveedores.objects.get(id_prov=id_prov)
+    formulario = ProveedoresForm(request.POST or None, request.FILES or None, instance=proveedor)
+    return render(request, "proveedores/editar.html", {"formulario": formulario})
 def crear_proveedores(request):
     formulario = ProveedoresForm(request.POST or None)
     if formulario.is_valid ():
@@ -104,6 +111,20 @@ def eliminar_proveedores(request,id_prov):
     proveedor.delete()
     return redirect("mostrar_proveedores")
 
-
+##Compras
 def mostrar_compras(request):
     return render(request,"compras/lista_compras.html")
+
+##Ventas
+def mostrar_ventas(request):
+    producto = Productos.objects.all()
+    empleado = Empleados.objects.all()
+    cliente = Clientes.objects.all()
+
+    context={
+        "empleados":empleado,
+        "clientes": cliente,
+        "productos": producto
+
+    }
+    return render(request, "ventas/lista_ventas.html",context)

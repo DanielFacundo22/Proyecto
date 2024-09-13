@@ -13,7 +13,7 @@
       <table class="table table-primary">
         <thead>
           <tr>
-            <th scope="col">ID</th>
+            <th scope="col">Codigo</th>
             <th scope="col">Nombre</th>
             <th scope="col">CUIT</th>
             <th scope="col">Acciones</th>
@@ -27,7 +27,7 @@
             <td scope="row">{{ proveedor.id_prov }}</td>
             <td>{{ proveedor.nombre_prov }}</td>
             <td>{{ proveedor.cuit_prov }}</td>
-            <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_proveedores" %}" role="button">Editar</a>
+            <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_proveedores" proveedor.id_prov %}" role="button">Editar</a>
               | <a name="" id="" class="btn btn-danger" href="{% url "eliminar_proveedores" proveedor.id_prov %}" role="button">Borrar</a>
             </td>
           </tr>

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block titulo %} Lista de articulos {% endblock %}
+{% block titulo %} Lista de Clientes {% endblock %}
 
 {% block contenido %}
 
@@ -13,7 +13,7 @@
       <table class="table table-primary">
         <thead>
           <tr>
-            <th scope="col">ID</th>
+            <th scope="col">Codigo</th>
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
             <th scope="col">Acciones</th>
@@ -25,13 +25,13 @@
             <td scope="row">{{ cliente.id_cli }}</td>
             <td>{{ cliente.nombre_cli }}</td>
             <td>{{ cliente.apellido_cli }}</td>
-            <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_clientes" %}" role="button">Editar</a>
+            <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_clientes" cliente.id_cli %}" role="button">Editar</a>
               | <a name="borrar" class="btn btn-danger" href="{% url "eliminar_clientes" cliente.id_cli %}" role="button">Borrar</a>
             </td>
           </tr>
           {% empty %}
           <tr>
-            <td colspan="4" class="text-center">No existen clientes</td>
+            <td colspan="4" class="text-center">No existen clientes</td>  
           </tr>
           {% endfor %}
         </tbody>

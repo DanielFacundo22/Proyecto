@@ -27,7 +27,7 @@
                 <a class="nav-item nav-link active" href="{% url "mostrar_articulos" %}">Articulos</a>
                 <a class="nav-item nav-link" href="{% url "mostrar_clientes" %}">Clientes</a>
                 <a class="nav-item nav-link" href="{% url "mostrar_compras" %}">Compras</a>    
-                <a class="nav-item nav-link" href="#">Ventas</a>    
+                <a class="nav-item nav-link" href="{% url "mostrar_ventas" %}">Ventas</a>    
                 <a class="nav-item nav-link" href="{% url "mostrar_proveedores" %}">Proveedores</a>    
                 <a class="nav-item nav-link" href="{% url "mostrar_empleados" %}">Empleados</a> 
                 <form action="{% url 'logout' %}" method="post" class="d-inline">

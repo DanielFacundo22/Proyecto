@@ -25,8 +25,9 @@
                         <ul class="list-group">
                             {% for producto in productos %}
                                 <li class="list-group-item">
-                                    {{ producto.id_prod }}  <!-- Se muestra el nombre del producto -->
+                                    {{ producto.nombre_prod }} - ${{ producto.precio_prod }}
                                 </li>
+
                              {% empty %}
                                 <li class="list-group-item">No hay artículos disponibles.</li>
                             {% endfor %}

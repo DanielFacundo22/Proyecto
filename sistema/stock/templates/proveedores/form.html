@@ -11,7 +11,9 @@
         name="{{campo.name}}" 
         id="" 
         aria-describedby="helpId" 
-        placeholder="{{campo.label}}" />
+        placeholder="{{campo.label}}"
+        value="{{ campo.value | default:"" }}"
+         />
 
      </div>
     {% endfor %}

@@ -1,216 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+{% block titulo %}Inicio{% endblock %}
+
+{% block contenido %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interfaz de Ventas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
-
-        .container {
-            display: flex;
-            width: 80%;
-            height: 90%;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .left-section, .right-section {
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .left-section {
-            width: 70%;
-            height: 100%;
-            border-right: 1px solid #ddd;
-        }
-
-        .right-section {
-            width: 30%;
-            height: 100%;
-        }
-
-        h2 {
-            color: #007bff;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            margin-top: 10px;
-        }
-
-        input, select {
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        button {
-            padding: 10px 15px;
-            border: none;
-            color: white;
-            background-color: #007bff;
-            cursor: pointer;
-            margin-top: 20px;
-            border-radius: 4px;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-        }
-
-        .btn-sm {
-            padding: 5px 10px;
-            font-size: 14px;
-        }
-
-        .text-end {
-            text-align: right;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/estilo_ventas.css' %}">
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <h1>Nueva Venta</h1>
+        </div>
+        <form>
+            <div class="form-group">
+                <label for="vendedor">Vendedor:</label>
+                <select name="vendedor" id="vendedor">
+                    {% for empleado in empleados %}
+                        <option value="{{ empleado.id_emplead }}">{{ empleado.nombre_emplead }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
 
-<div class="container">
-    <!-- Sección izquierda (Tabla de ventas) -->
-    <div class="left-section">
-        <h2>Interfaz de Ventas</h2>
+            <div class="form-group">
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha" name="fecha">
+            </div>
+            <div class="form-group">
+                <label for="cliente">Cliente:</label>
+                <select name="" id="">
+                    {% for cliente in clientes %}
+                    <option value=""></option>
+                     <option value="{{ cliente.id_cli }}">{{ cliente.nombre_cli }} {{ cliente.apellido_cli }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre">
+            </div>
 
-        <!-- Tabla de productos agregados -->
-        <table>
-            <thead>
-            <tr>
-                <th scope="col">Producto</th>
-                <th scope="col">Precio Unitario</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Subtotal</th>
-                <th scope="col">Acciones</th>
-            </tr>
-            </thead>
-            <tbody id="detalleVenta">
-            <!-- Los productos seleccionados se mostrarán aquí -->
-            </tbody>
-            <tfoot>
-            <tr>
-                <th colspan="3" class="text-end">Total:</th>
-                <th id="totalVenta">$0</th>
-                <th></th>
-            </tr>
-            </tfoot>
-        </table>
-
-        <!-- Botón para completar la venta -->
-        <div class="d-grid">
-            <button class="btn btn-primary" id="completarVenta">Completar Venta</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cantidad</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Descuento</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="number" name="cantidad"></td>
+                        <td><input type="text" name="descripcion"></td>
+                        <td><input type="number" name="precio"></td>
+                        <td><input type="number" name="descuento"></td>
+                        <td><input type="number" name="Subtotal"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-group">
+                <label for="pago">Forma de Pago:</label>
+                <select name="" id="">
+                    <option value="">Efectivo</option>
+                    <option value="">Transferencia</option>
+                    <option value="">Tarjeta de Debito</option>
+                    <option value="">Tarjeta de Credito</option>
+                </select>
+            </div>
+            <div class="total">
+                <label for="total">Total:</label>
+                <input type="number" id="total" name="total" readonly>
+            </div>
+            <div class="buttons">
+                <button type="submit">Aceptar</button>
+                <button type="button">Salir</button>
+            </div>
+        </form>
         </div>
     </div>
-
-    <!-- Sección derecha (Formulario para agregar productos) -->
-    <div class="right-section">
-        <form id="formVenta">
-            <label for="producto">Producto</label>
-            <select id="producto" required>
-                <option value="">Seleccione un producto</option>
-                <option value="1" data-precio="100">Producto 1 - $100</option>
-                <option value="2" data-precio="200">Producto 2 - $200</option>
-                <option value="3" data-precio="300">Producto 3 - $300</option>
-                <!-- Puedes generar estas opciones dinámicamente desde tu base de datos -->
-            </select>
-
-            <label for="cantidad">Cantidad</label>
-            <input type="number" id="cantidad" min="1" value="1" required>
-
-            <button type="submit">Agregar</button>
-        </form>
-    </div>
-</div>
-
-<!-- Script para manejar la lógica de la venta -->
-<script>
-    const formVenta = document.getElementById('formVenta');
-    const detalleVenta = document.getElementById('detalleVenta');
-    const totalVenta = document.getElementById('totalVenta');
-    let total = 0;
-
-    formVenta.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const productoSelect = document.getElementById('producto');
-        const cantidadInput = document.getElementById('cantidad');
-        const productoNombre = productoSelect.options[productoSelect.selectedIndex].text;
-        const precioUnitario = parseFloat(productoSelect.options[productoSelect.selectedIndex].dataset.precio);
-        const cantidad = parseInt(cantidadInput.value);
-        const subtotal = precioUnitario * cantidad;
-
-        // Actualizar el total
-        total += subtotal;
-        totalVenta.textContent = `$${total.toFixed(2)}`;
-
-        // Agregar el producto a la tabla
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${productoNombre}</td>
-            <td>$${precioUnitario.toFixed(2)}</td>
-            <td>${cantidad}</td>
-            <td>$${subtotal.toFixed(2)}</td>
-            <td><button class="btn btn-danger btn-sm" onclick="eliminarProducto(this, ${subtotal})">Eliminar</button></td>
-        `;
-        detalleVenta.appendChild(row);
-
-        // Limpiar el formulario
-        formVenta.reset();
-    });
-
-    // Función para eliminar un producto de la tabla
-    function eliminarProducto(button, subtotal) {
-        button.closest('tr').remove();
-        total -= subtotal;
-        totalVenta.textContent = `$${total.toFixed(2)}`;
-    }
-
-    // Completar la venta
-    document.getElementById('completarVenta').addEventListener('click', function() {
-        alert('Venta completada por un total de ' + totalVenta.textContent);
-        detalleVenta.innerHTML = '';
-        total = 0;
-        totalVenta.textContent = '$0';
-    });
-</script>
-
 </body>
 </html>
+
+
+{% endblock %}
