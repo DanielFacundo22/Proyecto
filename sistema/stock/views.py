@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import logout
 from .models import *
 from .forms import *
@@ -15,7 +15,7 @@ def procesar_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect('apertura_caja')  # Redirige a la página de inicio
+            return redirect('inicio')  # Redirige a la página de inicio
         else:
             messages.error(request, "Usuario o contraseña incorrecta")  
     return render(request, "procesar_login.html")
@@ -24,6 +24,10 @@ def procesar_login(request):
 @login_required
 def apertura_caja(request):
     return render(request, "apertura_caja.html")
+
+def cierre_caja(request):
+    return render(request, "cierre_caja.html")
+
 @login_required
 def inicio(request):
     producto=Productos.objects.all()

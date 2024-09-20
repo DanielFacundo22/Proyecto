@@ -1,14 +1,12 @@
 {% load static %}
+{% load static %}
 <!doctype html>
 <html lang="en">
     <head>
-        <title> {% block titulo %}   {% endblock %} </title>
+        <title> {% block titulo %} {% endblock %} </title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
         <!-- Bootstrap CSS v5.2.1 -->
         <link
@@ -17,35 +15,49 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+        <link rel="stylesheet" href="{% static 'css/estilo_menu_caja.css' %}">
+
     </head>
 
     <body>
         <nav class="navbar navbar-expand navbar-light bg-light">
             <div class="nav navbar-nav">
+                <a class="nav-item nav-link active" href="{% url 'inicio' %}">Inicio</a>
+                <a class="nav-item nav-link active" href="{% url 'mostrar_articulos' %}">Productos</a>
+                <a class="nav-item nav-link" href="{% url 'mostrar_clientes' %}">Clientes</a>
+                <a class="nav-item nav-link" href="{% url 'mostrar_compras' %}">Compras</a>    
+                <a class="nav-item nav-link" href="{% url 'mostrar_ventas' %}">Ventas</a>    
+                <a class="nav-item nav-link" href="{% url 'mostrar_proveedores' %}">Proveedores</a>    
+                <a class="nav-item nav-link" href="{% url 'mostrar_empleados' %}">Empleados</a>
 
-                <a class="nav-item nav-link active" href="{% url "inicio" %}">Inicio</a>
-                <a class="nav-item nav-link active" href="{% url "mostrar_articulos" %}">Articulos</a>
-                <a class="nav-item nav-link" href="{% url "mostrar_clientes" %}">Clientes</a>
-                <a class="nav-item nav-link" href="{% url "mostrar_compras" %}">Compras</a>    
-                <a class="nav-item nav-link" href="{% url "mostrar_ventas" %}">Ventas</a>    
-                <a class="nav-item nav-link" href="{% url "mostrar_proveedores" %}">Proveedores</a>    
-                <a class="nav-item nav-link" href="{% url "mostrar_empleados" %}">Empleados</a> 
+                <!-- menu caja-->
+                <div class="dropdown">
+                    <a class="nav-link" href="#" role="button" id="dropdownCaja">
+                        Caja
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownCaja">
+                        <li><a class="dropdown-item" href="{% url 'apertura_caja' %}" onclick="seleccionarOpcion('abrir')">Abrir Caja</a></li>
+                        <li><a class="dropdown-item" href="{% url 'cierre_caja' %}" onclick="seleccionarOpcion('cerrar')">Cerrar Caja</a></li>
+                    </ul>
+                </div>
+
+                <!--Cierre sesion-->
                 <form action="{% url 'logout' %}" method="post" class="d-inline">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-secondary">Cerrar sesión</button>
                 </form>
-                
-  
             </div>
         </nav>
         
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    {% block contenido %}  {% endblock %}
+                    {% block contenido %} {% endblock %}
                 </div>
             </div>
         </div>
+
+        <!-- Scripts de Bootstrap -->
         <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
