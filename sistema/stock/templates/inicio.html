@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% block titulo %}Inicio{% endblock %}
+
+{% block contenido %}
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Sección de Encabezado -->
+            <div class="col-12 mb-4">
+                <h1 class="text-primary">SmartCell</h1>
+                <p class="lead">Aquí puedes encontrar información relevante sobre los artículos y otros aspectos importantes.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sección de Artículos -->
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3>Productos</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Aquí se mostrará la lista de productos disponibles.</p>
+                        <!-- Mostrar la lista de productos obtenidos -->
+                        <ul class="list-group">
+                            {% for producto in productos %}
+                                <li class="list-group-item">
+                                    {{ producto.nombre_prod }} - ${{ producto.precio_prod }}
+                                </li>
+
+                             {% empty %}
+                                <li class="list-group-item">No hay artículos disponibles.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+            <!-- Sección de Artículos Faltantes -->
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Artículos Faltantes
+                    </div>
+                    <div class="card-body">
+                        <p>Aquí se mostrará la lista de artículos faltantes.</p>
+                        <!-- Aquí puedes insertar una tabla o lista de artículos faltantes -->
+                        <ul class="list-group">
+                            <li class="list-group-item">Artículo Faltante 1</li>
+                            <li class="list-group-item">Artículo Faltante 2</li>
+                            <li class="list-group-item">Artículo Faltante 3</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

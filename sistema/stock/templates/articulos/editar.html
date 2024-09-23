@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block titulo %} Lista de articulos {% endblock %}
+
+{% block contenido %} 
+
+<div class="card">
+    <div class="card-header">Crear un articulo</div>
+    <div class="card-body">
+      <h4 class="card-title">Descripcion</h4>
+      {% include "articulos/form.html" %}
+    </div>
+  </div>
+ {% endblock %}
