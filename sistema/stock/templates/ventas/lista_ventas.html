@@ -5,87 +5,130 @@
 {% block contenido %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Interfaz de Ventas</title>
     <link rel="stylesheet" href="{% static 'css/estilo_ventas.css' %}">
 </head>
+
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Nueva Venta</h1>
-        </div>
-        <form>
-            <div class="form-group">
-                <label for="vendedor">Vendedor:</label>
-                <select name="vendedor" id="vendedor">
-                    {% for empleado in empleados %}
+    <div class="contenedor">
+        <div class="caja_venta">
+            <div class="header">
+                <h1>Nueva Venta</h1>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label for="vendedor">Vendedor:</label>
+                    <select name="vendedor" id="vendedor">
+                        {% for empleado in empleados %}
                         <option value="{{ empleado.id_emplead }}">{{ empleado.nombre_emplead }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            
+                        {% endfor %}
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="fecha">Fecha:</label>
-                <input type="date" id="fecha" name="fecha">
-            </div>
-            <div class="form-group">
-                <label for="cliente">Cliente:</label>
-                <select name="" id="">
-                    {% for cliente in clientes %}
-                    <option value=""></option>
-                     <option value="{{ cliente.id_cli }}">{{ cliente.nombre_cli }} {{ cliente.apellido_cli }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre">
-            </div>
+                <div class="form-group">
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fecha" name="fecha">
+                </div>
+                <div class="form-group">
+                    <label>Cliente:</label>
+                    <select name="" id="">
+                        {% for cliente in clientes %}
+                        <option value="{{ cliente.id_cli }}">{{ cliente.nombre_cli }} {{ cliente.apellido_cli }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Cantidad</th>
-                        <th>Descripción</th>
-                        <th>Precio</th>
-                        <th>Descuento</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="number" name="cantidad"></td>
-                        <td><input type="text" name="descripcion"></td>
-                        <td><input type="number" name="precio"></td>
-                        <td><input type="number" name="descuento"></td>
-                        <td><input type="number" name="Subtotal"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="form-group">
-                <label for="pago">Forma de Pago:</label>
-                <select name="" id="">
-                    <option value="">Efectivo</option>
-                    <option value="">Transferencia</option>
-                    <option value="">Tarjeta de Debito</option>
-                    <option value="">Tarjeta de Credito</option>
-                </select>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cantidad</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Descuento</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <div class="barra_productos">
+                            <tr>
+                                <td>""</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </div>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <label for="pago">Forma de Pago:</label>
+                    <select name="" id="">
+                        <option value="">Efectivo</option>
+                        <option value="">Transferencia</option>
+                        <option value="">Tarjeta de Debito</option>
+                        <option value="">Tarjeta de Credito</option>
+                    </select>
+                </div>
+                <div class="total">
+                    <label for="total">Total:</label>
+                    <input type="number" id="total" name="total" readonly>
+                </div>
+                <div class="buttons">
+                    <button type="submit">Aceptar</button>
+                    <button type="button">Salir</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- CAJA DE PRODUCTOS -->
+        <div class="caja_productos">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Productos</h4>
+
+                    <div class="table-responsive">
+                        <table class="table table-primary">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Codigo</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for producto in productos %}
+                                <tr class="">
+                                    <td scope="row">{{ producto.id_prod }}</td>
+                                    <td>{{ producto.nombre_prod }}</td>
+                                    <td>{{ producto.precio_prod }}</td>
+                                    <td><a name="agregar" class="btn btn-success" href="" role="button">Añadir</a></td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="4" class="text-center">No hay artículos disponibles.</td>
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="total">
-                <label for="total">Total:</label>
-                <input type="number" id="total" name="total" readonly>
-            </div>
-            <div class="buttons">
-                <button type="submit">Aceptar</button>
-                <button type="button">Salir</button>
-            </div>
-        </form>
+            <br>
+
         </div>
     </div>
 </body>
+
 </html>
+
 
 
 {% endblock %}

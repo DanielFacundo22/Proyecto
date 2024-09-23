@@ -7,16 +7,30 @@ body {
     padding: 20px;
 }
 
-/* Contenedor principal */
-.container {
-    max-width: 900px;
-    margin: 0 auto;
+
+.contenedor{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.caja_venta {
+    width: 65%;
     background-color: #fff;
     padding: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(173, 17, 17, 0.1);
     border-radius: 10px;
 }
 
+.caja_productos{
+    width: 35%; 
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 /* Encabezado */
 .header {
     text-align: center;
@@ -29,9 +43,6 @@ body {
 }
 
 /* Estilos de los formularios */
-.form-group {
-    margin-bottom: 15px;
-}
 
 .form-group label {
     font-weight: bold;
@@ -117,3 +128,4 @@ button[type="button"] {
 button:hover {
     opacity: 0.9;
 }
+
