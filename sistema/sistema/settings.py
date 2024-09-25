@@ -123,7 +123,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 if DEBUG:
     STATICFILES_DIRS = [
-        BASE_DIR / "static",
+        BASE_DIR / "stock/static",
     ]
 
 # Default primary key field type

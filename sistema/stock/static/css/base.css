@@ -17,7 +17,7 @@ html, body {
     left: 0;
     width: calc(100% - 100px); /* Ajusta el ancho para considerar la barra lateral */
     height: 58px; /* Altura de la barra superior */
-    background-color: white; /* Azul oscuro */
+    background-color: #2f5dddfa; /* Azul oscuro */
     display: flex;
     align-items: center; /* Centra verticalmente los elementos */
     justify-content: center; /* Centra horizontalmente los elementos */
@@ -38,8 +38,8 @@ html, body {
     padding: 100px;
 }
 nav {
-    background-color: white; /* Azul más oscuro */
-    width: 98px; /* Ancho fijo */
+    background-color:#2f5dddfa; /* Azul más oscuro */
+    width: 120px; /* Ancho fijo */
     height: calc(100vh - 50px); /* Altura completa menos la altura de la barra superior */
     position: fixed; /* Fijar la barra en la parte izquierda */
     top: 58px; /* Ajusta para que esté debajo de la barra superior */
@@ -56,8 +56,9 @@ nav {
     display: flex;
     flex-direction: column; /* Los elementos estarán en una columna */
     list-style-type: none;
-    padding-left: 0;
-    gap: 50px; /* Espaciado entre elementos */
+    flex-wrap: wrap;
+    padding-left: 10px;
+    gap: 40px; /* Espaciado entre elementos */
     
 }
 
@@ -66,13 +67,13 @@ nav {
 /* BOTONES DE LA BARRA DE TAREA (INICIO ETC..) */
 .nav-item {
     text-decoration: none;
-    color: rgb(243, 243, 243); /* Color blanco para los enlaces */
+    color: rgb(168, 54, 54); /* Color blanco para los enlaces */
     font-weight: bold;
-    padding: 12px 10px;
-    background-color: #186fb1; /* Azul más claro para los botones */
+    padding: 10px;
+    background-color: #ffffff; /* Azul más claro para los botones */
     border-radius: 11px; /* Bordes redondeados */
     text-align: center;
-    box-shadow: 0 3px 6px rgb(127, 174, 189); /* Sombra en los botones */
+    box-shadow: 0 3px 6px rgb(200, 210, 213); /* Sombra en los botones */
     transition: transform 0.3s ease; /* Animación al hacer hover */
 }
 
@@ -84,27 +85,13 @@ nav {
     transform: scale(1.05); /* Aumenta ligeramente el tamaño al hacer hover */
 }
 
-/*-------------------------------------------------------------*/
-
-
-
-.col-12 {
-    flex: 1;
-    padding: 100px;
-    background-color: rgb(254, 254, 254);
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(60, 50, 124, 0.819); /* Sombra */
-}
-
-/*---------------------------------------------------------------*/
-
-
 /* Columna */
 .col-12 {
     padding: 20px; /* Ajusta según sea necesario */
     background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente si lo deseas */
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(60, 50, 124, 0.819); /* Sombra */
+    width: 900px;
 }
 
 

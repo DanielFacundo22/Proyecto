@@ -90,6 +90,12 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Productos</h4>
+                    <form method="GET" action="">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="q" placeholder="Buscar producto..." value="{{ request.GET.q }}">
+                            <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                        </div>
+                    </form>
 
                     <div class="table-responsive">
                         <table class="table table-primary">

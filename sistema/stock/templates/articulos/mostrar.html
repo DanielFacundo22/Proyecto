@@ -23,7 +23,9 @@
               <th scope="col">Codigo</th>
               <th scope="col">Nombre</th>
               <th scope="col">Precio</th>
+
               <th scope="col">Acciones</th>
+ 
             </tr>
           </thead>
           <tbody>
@@ -32,9 +34,11 @@
               <td scope="row">{{ producto.id_prod }}</td>
               <td>{{ producto.nombre_prod }}</td>
               <td>{{ producto.precio_prod }}</td>
+
               <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_articulos" producto.id_prod %}" role="button">Editar</a>
                 | <a name="" id="" class="btn btn-danger" href="{% url "eliminar_producto" producto.id_prod %}" role="button">Borrar</a>
               </td>
+ 
             </tr>
             {% empty %}
             <tr>

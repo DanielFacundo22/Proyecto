@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import logout
 from .models import *
 from .forms import *
-# Create your views here.
+from django.db.models import Q
     
 def procesar_login(request):    
     if request.method == 'POST':
@@ -36,8 +36,15 @@ def inicio(request):
 
 ##CRUD Articulos
 def mostrar_articulos(request):
-    producto=Productos.objects.all()
-    return render(request, "articulos/mostrar.html",{"productos":producto})
+    query = request.GET.get('q')  # Obtener el término de búsqueda
+    if query:
+        # Filtrar los productos por nombre o código usando el término de búsqueda
+        productos = Productos.objects.filter(Q(nombre_prod__icontains=query) | Q(id_prod__icontains=query))
+    else:
+        # Mostrar todos los productos si no hay búsqueda
+        productos = Productos.objects.all()
+
+    return render(request, "articulos/mostrar.html", {"productos": productos})
 def editar_articulos(request,id_prod):
     producto=Productos.objects.get(id_prod=id_prod)
     formulario = ProductosForm(request.POST or None, request.FILES or None, instance=producto)
@@ -132,3 +139,4 @@ def mostrar_ventas(request):
 
     }
     return render(request, "ventas/lista_ventas.html",context)
+
