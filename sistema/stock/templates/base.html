@@ -8,6 +8,7 @@
     <!-- Enlace a la hoja de estilos base.css -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/estilo_proveedores.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     
 </head>
 <body>
@@ -22,7 +23,10 @@
     <nav>
         <ul class="nav">
             <li><a class="nav-item" href="{% url 'inicio' %}">Inicio</a></li>
-                                <!-- Boton Caja -->
+            <li><a class="nav-item" href="{% url 'mostrar_articulos' %}">Productos</a></li>
+            <li><a class="nav-item" href="{% url 'mostrar_ventas' %}">Ventas</a></li>
+            <li><a class="nav-item" href="{% url 'mostrar_compras' %}">Compras</a></li>
+                    <!-- Boton Caja -->
         <div class="dropdown">
             <a class="nav-link nav-item" href="#" role="button" id="dropdownCaja">
                 Caja
@@ -31,10 +35,7 @@
                 <a class="dropdown-item" href="{% url 'apertura_caja' %}">Abrir Caja</a>
                 <a class="dropdown-item" href="{% url 'cierre_caja' %}">Cerrar Caja</a>
             </div>
-        </div> 
-            <li><a class="nav-item" href="{% url 'mostrar_ventas' %}">Ventas</a></li>
-            <li><a class="nav-item" href="{% url 'mostrar_articulos' %}">Productos</a></li>
-            <li><a class="nav-item" href="{% url 'mostrar_compras' %}">Compras</a></li><br><br><br><br><br><br><br><br><br><br><br><br>
+        </div> <br><br><br><br><br><br><br><br><br><br>
                 <!-- Botón para cerrar sesión -->
                 <form action="{% url 'logout' %}" method="post" style="display: inline;">
                     {% csrf_token %}

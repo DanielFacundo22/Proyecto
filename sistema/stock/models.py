@@ -4,6 +4,8 @@ from django.db import models
 
 from django.db import models
 
+from django.contrib.auth.models import User
+
 class Proveedores(models.Model):
     id_prov = models.AutoField(primary_key=True)
     nombre_prov = models.CharField(max_length=100, verbose_name="nombre del proveedor", null=False, blank=True)
@@ -29,20 +31,26 @@ class Clientes(models.Model):
     
 
 class Empleados(models.Model):
-    id_emplead=models.AutoField(primary_key=True)
-    nombre_emplead=models.CharField(max_length=100, verbose_name="Nombre del empelado", null=False)
-    apellido_emplead=models.CharField(max_length=100, verbose_name="Apellido del empleado",null=False)
-    dni_emplead=models.CharField(max_length=100, verbose_name="DNI del empleado", null=False)
-    direcc_emplead=models.CharField(max_length=100, verbose_name="Direccion del empleado", null=True, blank=True)
-    tel_emplead=models.CharField(max_length=50, verbose_name="Telefono del empleado", null=True, blank=True)
-    correo_emplead=models.CharField(max_length=100, verbose_name="Email del empleado", null=True, blank=True)
-    sueldo_emplead=models.DecimalField(max_digits=10,decimal_places=2, verbose_name="Sueldo del empleado", null=True, blank=True)
-    fecha_inicio=models.DateField(verbose_name="Fecha de inicio", null=False)
-    fecha_fin=models.DateField(verbose_name="Fecha de finalizacion", null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='empleado', null=True, blank=True)
+    id_emplead = models.AutoField(primary_key=True)
+    nombre_emplead = models.CharField(max_length=100, verbose_name="Nombre del empleado", null=False)
+    apellido_emplead = models.CharField(max_length=100, verbose_name="Apellido del empleado", null=False)
+    dni_emplead = models.CharField(max_length=100, verbose_name="DNI del empleado", null=False)
+    direcc_emplead = models.CharField(max_length=100, verbose_name="Dirección del empleado", null=True, blank=True)
+    tel_emplead = models.CharField(max_length=50, verbose_name="Teléfono del empleado", null=True, blank=True)
+    correo_emplead = models.EmailField(max_length=100, verbose_name="Email del empleado", null=True, blank=True)
+    sueldo_emplead = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Sueldo del empleado", null=True, blank=True)
+    fecha_inicio = models.DateField(verbose_name="Fecha de inicio", null=False)
+    fecha_fin = models.DateField(verbose_name="Fecha de finalización", null=True, blank=True)
 
+    def delete(self, *args, **kwargs):
+        # Si el empleado tiene un usuario asociado, eliminarlo también
+        if self.user:
+            self.user.delete()
+        super().delete(*args, **kwargs)
+        
     def __str__(self):
-        return self.nombre_emplead
-
+        return f"{self.nombre_emplead} {self.apellido_emplead}"
 
 
 class Productos(models.Model):

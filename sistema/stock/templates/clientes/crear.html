@@ -2,13 +2,17 @@
 
 {% block titulo %} Agregar nuevo cliente {% endblock %}
 
-{% block contenido %}  
-
+{% block contenido %}
+{% if formulario.errors %}
+{% endif %}
 <div class="card">
-  <div class="card-header">Añadir cliente</div>
+  <div class="card-header">Crear un cliente</div>
   <div class="card-body">
-    <h4 class="card-title">Nombre</h4>
-    {% include "clientes/form.html" %}
+    <h4 class="card-title">Descripción</h4>
+    <form enctype="multipart/form-data" method="post">  <!-- Asegúrate de que este form esté presente -->
+        {% csrf_token %}
+        {% include "clientes/form.html" %}  <!-- Asegúrate de que la ruta al form sea correcta -->
+    </form>
   </div>
 </div>
 {% endblock %}
