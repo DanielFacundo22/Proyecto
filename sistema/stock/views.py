@@ -143,24 +143,7 @@ def crear_empleados(request):
             password = get_random_string(length=12)
             user.set_password(password)
             user.save()
-
-            telefono_empleado = request.POST.get('tel_emplead')  # Asegúrate de que este campo esté en el formulario
             
-            if telefono_empleado:
-                client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
-                try:
-                    # Enviar mensaje por WhatsApp
-                    message = client.messages.create(
-                        body=f"Hola {user.username}, tu contraseña generada es: {password}",
-                        from_=TWILIO_WHATSAPP_NUMBER,
-                        to=f'whatsapp:+{telefono_empleado}'  # Asegúrate de que el número de teléfono esté en formato internacional
-                    )
-                    messages.success(request, f"La contraseña generada para el usuario {user.username} ha sido enviada por WhatsApp.")
-                except Exception as e:
-                    messages.error(request, f"Ocurrió un error al enviar el mensaje: {str(e)}")
-            else:
-                messages.error(request, "No se proporcionó un número de teléfono válido.")
-
         empleado.save()
         return redirect("mostrar_empleados")
     
@@ -227,4 +210,35 @@ def mostrar_ventas(request):
     }
     return render(request, "ventas/lista_ventas.html",context)
 
+def crear_venta(request,precio_prod):
+    if request.method == "POST":
+        form = VentasForm(request.POST)
+        if form.is_valid():
+            venta=form.save()
+            productos = request.POST.getlist("productos[]")
+            cantidades = request.POST.getlist("cantidades[]")
+            descuentos = request.POST.getlist("descuentos[]")
+            subtotales = request.POST.getlist("subtotales[]")
 
+            for i in range(len(productos)):
+                producto =  Productos.objects.get(id_prod=productos[i])
+                cantidad =  int(cantidades[i])
+                descuento =  float(descuentos[i])
+                subtotal =  float(subtotales[i])
+
+
+                det_ventas.objects.create(
+                    id_venta=venta,
+                    id_prod=producto,
+                    cant_vendida=cantidad,
+                    subtotal_venta=subtotal,
+                    precio_prod=Productos.objects.get(precio_prod=precio_prod)
+                )
+
+
+                return redirect("ventas/listar_ventas.html")
+            
+    else:
+        formulario=VentasForm
+
+    return render(request, "ventas/listar_ventas.html",{"formulario": formulario})

@@ -7,34 +7,31 @@ body {
     padding: 20px;
 }
 
-.card {
+.box_principal {
     background-color: #fff;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     margin-bottom: 20px;
+    width: 80%;
+    position: fixed;
 }
 
-.card-header {
-    background-color: #007bff;
+.Titulo {
+    background-color: #186fb1;
     color: white;
     padding: 15px;
     border-radius: 10px 10px 0 0;
     font-size: 1.25rem;
 }
 
-.card-body {
+.box_secundaria {
     padding: 20px;
 }
 
-h4.card-title {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: #333;
-}
 
 /* Estilos para la tabla */
-.table-responsive {
+.tabla-responsive {
     margin-top: 20px;
 }
 
@@ -51,7 +48,7 @@ table th, table td {
 }
 
 table th {
-    background-color: #007bff;
+    background-color: #186fb1;
     color: white;
 }
 
@@ -66,7 +63,7 @@ table .btn {
 }
 
 .btn-primary {
-    background-color: #007bff;
+    background-color: #186fb1;
     border: none;
     color: white;
 }
@@ -77,13 +74,13 @@ table .btn {
     color: white;
 }
 
-.btn-success {
+.btn_agregar {
     padding: 10px 20px;
     font-size: 1rem;
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    background-color: #007bff;
+    background-color: #57d470;
     color: white;
 }
 
@@ -106,3 +103,4 @@ table .btn {
 .buttons .btn {
     margin-right: 10px;
 }
+

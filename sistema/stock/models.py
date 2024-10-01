@@ -1,9 +1,7 @@
 # stock/models.py
 
 from django.db import models
-
-from django.db import models
-
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 class Proveedores(models.Model):
@@ -79,17 +77,7 @@ class Cajas(models.Model):
 
     def __str__(self):
         return self.id_caja
-    
-class Ventas(models.Model):
-    id_venta=models.AutoField(primary_key=True)
-    id_caja=models.ForeignKey(Cajas, on_delete=models.SET_NULL, null=True, related_name="ventas")
-    id_cliente=models.ForeignKey(Clientes, on_delete=models.SET_NULL, null=True, related_name="ventas")
-    fecha_hs=models.DateTimeField(null=False)
-    total_venta=models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Total de la venta",null=False)
-
-    def __str__(self):
-        return f"Venta: {self.id_venta}"
-    
+     
 class Compras(models.Model):
     id_compra=models.AutoField(primary_key=True)
     id_prov=models.ForeignKey(Proveedores, on_delete=models.SET_NULL, null=True, blank=True, related_name="compras")
@@ -112,6 +100,17 @@ class det_compras(models.Model):
     def __str__(self):
         return f"det_venta: {self.id_det_compra}"
 
+
+class Ventas(models.Model):
+    id_venta=models.AutoField(primary_key=True)
+    id_caja=models.ForeignKey(Cajas, on_delete=models.SET_NULL, null=True, related_name="ventas")
+    id_cliente=models.ForeignKey(Clientes, on_delete=models.SET_NULL, null=True, related_name="ventas")
+    fecha_hs=models.DateTimeField(null=False)
+    total_venta=models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Total de la venta",null=False)
+
+    def __str__(self):
+        return f"Venta: {self.id_venta}"
+
 class det_ventas(models.Model):
     id_det_venta=models.AutoField(primary_key=True)
     id_prod=models.ForeignKey(Productos, on_delete=models.SET_NULL,null= True, blank=True, related_name="det_ventas" )
@@ -122,3 +121,4 @@ class det_ventas(models.Model):
 
     def __str__(self):
         return f"det_venta: {self.id_det_venta}"
+    

@@ -63,7 +63,7 @@ class EmpleadosForm(forms.ModelForm):
         if commit:
             empleado.save()
         return empleado
-# stock/forms.py
+
 
 from django import forms
 from .models import Productos  # Asegúrate de que la ruta sea correcta
@@ -71,7 +71,7 @@ from .models import Productos  # Asegúrate de que la ruta sea correcta
 class ProductosForm(forms.ModelForm):
     class Meta:
         model = Productos
-        fields = ['nombre_prod', 'precio_prod', 'stock_min', 'stock_max', 'stock_actual', 'punto_reposicion']  # Usa los nombres de campo correctos
+        fields = ['nombre_prod', 'precio_prod', 'stock_min', 'stock_max', 'stock_actual', 'punto_reposicion'] 
 
     def clean_nombre_prod(self):
         nombre_prod = self.cleaned_data.get('nombre_prod')
@@ -108,3 +108,8 @@ class ProductosForm(forms.ModelForm):
         if punto_reposicion is not None and punto_reposicion < 0:
             raise forms.ValidationError("El punto de reposición no puede ser negativo.")
         return punto_reposicion
+
+class VentasForm(forms.ModelForm):
+    class Meta:
+        model = Ventas
+        fields="__all__"
