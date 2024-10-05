@@ -65,7 +65,7 @@ class Productos(models.Model):
         return self.nombre_prod
     
 class Cajas(models.Model):
-    id_caja=models.AutoField(primary_key=True)
+    id_caja=models.AutoField(primary_key=True, verbose_name="caja")
     id_emplead=models.ForeignKey(Empleados,on_delete=models.SET_NULL, null= True, related_name="cajas")
     fecha_hs_apertura=models.DateTimeField(verbose_name="Fecha y hora de apertura", null=False)
     fecha_hs_cierre=models.DateTimeField(verbose_name="Fecha y hora de cierre", null=False)
@@ -74,9 +74,9 @@ class Cajas(models.Model):
     total_ingreso=models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Ingreso total del dia", null=False)
     total_egreso=models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Gastos del dia", null=True, blank=True)
     abierto_caja=models.BooleanField(default=False)
-
     def __str__(self):
-        return self.id_caja
+        return f"compra: {self.id_caja}"
+
      
 class Compras(models.Model):
     id_compra=models.AutoField(primary_key=True)
@@ -104,7 +104,7 @@ class det_compras(models.Model):
 class Ventas(models.Model):
     id_venta=models.AutoField(primary_key=True)
     id_caja=models.ForeignKey(Cajas, on_delete=models.SET_NULL, null=True, related_name="ventas")
-    id_cliente=models.ForeignKey(Clientes, on_delete=models.SET_NULL, null=True, related_name="ventas")
+    id_cli=models.ForeignKey(Clientes, on_delete=models.SET_NULL, null=True, related_name="ventas")
     fecha_hs=models.DateTimeField(null=False)
     total_venta=models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Total de la venta",null=False)
 

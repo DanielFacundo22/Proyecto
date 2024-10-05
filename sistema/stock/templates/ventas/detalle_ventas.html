@@ -1,9 +1,37 @@
-<div class="form-group">
-    <label for="pago">Forma de Pago:</label>
-    <select name="" id="">
-        <option value="">Efectivo</option>
-        <option value="">Transferencia</option>
-        <option value="">Tarjeta de Debito</option>
-        <option value="">Tarjeta de Credito</option>
-    </select>
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}Detalle de Venta{% endblock %}
+
+{% block contenido %}
+<div class="detalle-container">
+    <h2>Detalle de la Venta</h2>
+    <p><strong>ID Venta:</strong> {{ venta.id_venta }}</p>
+    <p><strong>Cliente:</strong> {{ venta.id_cli.nombre_cli }} {{ venta.id_cli.apellido_cli }}</p>
+    <p><strong>Fecha:</strong> {{ venta.fecha_hs }}</p>
+    <p><strong>Total:</strong> ${{ venta.total_venta }}</p>
+
+    <h3>Productos Vendidos</h3>
+    <table class="detalle-table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio Unitario</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detalle in detalles %}
+            <tr>
+                <td>{{ detalle.id_prod.nombre_prod }}</td>
+                <td>${{ detalle.precio_prod }}</td>
+                <td>{{ detalle.cant_vendida }}</td>
+                <td>${{ detalle.subtotal_venta }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'inicio' %}" class="btn btn-primary">Volver</a>
 </div>
+{% endblock %}

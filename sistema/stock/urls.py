@@ -53,5 +53,7 @@ urlpatterns = [
     ##Compras
     path("mostrar_compras",views.mostrar_compras,name="mostrar_compras"),
     ##Ventas
-    path("mostrar_ventas",views.mostrar_ventas, name="mostrar_ventas"),
+    path("crear_venta",views.crear_venta, name="crear_venta"),
+    path('det_venta/<int:id_venta>/', views.det_venta, name='det_venta'),
+    path('detalle_venta/pdf/<int:id_venta>/', views.GenerarPdf, name='generar_pdf'),
 ]

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Empleados
+
 
 #Proveedores
 from .models import Proveedores
@@ -9,9 +9,9 @@ admin.site.register(Proveedores)
 #Clientes
 from .models import Clientes
 admin.site.register(Clientes)
-
 #Empleados
-
+from .models import Empleados
+admin.site.register(Empleados)
 
 #Productos
 from .models import Productos
@@ -31,3 +31,15 @@ class UserAdmin(BaseUserAdmin):
 admin.site.unregister(User)
 # Registrar el nuevo UserAdmin
 admin.site.register(User, UserAdmin)
+
+#Ventas
+from .models import Ventas
+admin.site.register(Ventas)
+
+#Cajas
+from .models import Cajas
+admin.site.register(Cajas)
+
+#det_venta
+from .models import det_ventas
+admin.site.register(det_ventas)

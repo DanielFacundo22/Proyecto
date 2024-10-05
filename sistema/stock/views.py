@@ -10,8 +10,9 @@ from django.utils.crypto import get_random_string
 from twilio.rest import Client
 from .models import *
 from .forms import *
-
-# Create your views here.
+from django.utils import timezone
+from xhtml2pdf import pisa  
+from django.template.loader import get_template
     
 def procesar_login(request):    
     if request.method == 'POST':
@@ -20,7 +21,7 @@ def procesar_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect('inicio')  # Redirige a la página de inicio
+            return redirect('inicio')  
         else:
             messages.error(request, "Usuario o contraseña incorrecta")  
     return render(request, "procesar_login.html")
@@ -50,16 +51,16 @@ def editar_articulos(request,id_prod):
     formulario = ProductosForm(request.POST or None, request.FILES or None, instance=producto)
 
     if request.method == 'POST':
-        if formulario.is_valid():  # Verifica si el formulario es válido
-            formulario.save()  # Guarda los cambios en el modelo
-            messages.success(request, "Artículo editado exitosamente.")  # Mensaje de éxito
-            return redirect('mostrar_articulos')  # Redirige a la lista de artículos (ajusta el nombre según tu URL)
+        if formulario.is_valid():  
+            formulario.save()  
+            messages.success(request, "Artículo editado exitosamente.")  
+            return redirect('mostrar_articulos') 
 
     return render(request, "articulos/editar.html", {"formulario": formulario})
 
 def crear_articulos(request):
     formulario = ProductosForm(request.POST or None)
-    if request.method == 'POST':  # Asegúrate de que el método sea POST
+    if request.method == 'POST':  # 
         if formulario.is_valid():
             formulario.save()
             return redirect("mostrar_articulos")
@@ -85,7 +86,7 @@ def editar_clientes(request, id_cli):
         if formulario.is_valid():
             formulario.save()
             messages.success(request, "Cliente editado exitosamente.")
-            return redirect('mostrar_clientes')  # Redirige a la lista de clientes o donde desees
+            return redirect('mostrar_clientes') 
 
     return render(request, "clientes/editar.html", {"formulario": formulario})
 
@@ -113,25 +114,25 @@ def mostrar_empleados(request):
 @permission_required('stock.view_empleado')
 def editar_empleados(request, id_emplead):
     empleado = get_object_or_404(Empleados, id_emplead=id_emplead)
-    user = empleado.user  # Asegúrate de que la relación entre empleado y usuario esté bien definida
+    user = empleado.user 
     formulario = EmpleadosForm(request.POST or None, request.FILES or None, instance=empleado)
 
     if request.method == 'POST':
         if formulario.is_valid():
             username = formulario.cleaned_data.get('username')
             
-            # Verifica si el username ya existe en otro usuario
+           
             if User.objects.filter(username=username).exclude(id=user.id).exists():
                 formulario.add_error('username', 'Este nombre de usuario ya está en uso por otro empleado.')
             else:
                 formulario.save()
                 messages.success(request, "Empleado actualizado con éxito.")
-                return redirect('mostrar_empleados')  # Redirige a la lista de empleados
+                return redirect('mostrar_empleados')  
 
     return render(request, "empleados/editar.html", {"formulario": formulario})
 
 
-##aqui va el toquen de autenticacion y el numero de wpp
+
 
 @permission_required('stock.view_empleado')
 def crear_empleados(request):
@@ -163,19 +164,18 @@ def mostrar_proveedores(request):
 
 @permission_required('stock.view_empleado')
 def editar_proveedores(request, id_prov):
-    # Obtener el proveedor o devolver un 404 si no existe
+   
     proveedor = get_object_or_404(Proveedores, id_prov=id_prov)
     
-    # Crear un formulario con los datos existentes del proveedor
+
     formulario = ProveedoresForm(request.POST or None, request.FILES or None, instance=proveedor)
-    
-    # Si el formulario es válido, guardamos los cambios
+
     if formulario.is_valid():
-        formulario.save()  # Guardar los cambios en la base de datos
+        formulario.save()  
         messages.success(request, 'Proveedor actualizado correctamente.')
-        return redirect('mostrar_proveedores')  # Redirigir a la lista de proveedores o la página que elijas
+        return redirect('mostrar_proveedores')  
     
-    # Renderizamos la página de edición si es GET o el formulario no es válido
+   
     return render(request, "proveedores/editar.html", {"formulario": formulario})
 
 @permission_required('stock.view_empleado')
@@ -196,49 +196,90 @@ def eliminar_proveedores(request,id_prov):
 def mostrar_compras(request):
     return render(request,"compras/lista_compras.html")
 
-##Ventas
-def mostrar_ventas(request):
+
+
+def crear_venta(request):
     producto = Productos.objects.all()
     empleado = Empleados.objects.all()
     cliente = Clientes.objects.all()
 
-    context={
-        "empleados":empleado,
-        "clientes": cliente,
-        "productos": producto
-
-    }
-    return render(request, "ventas/lista_ventas.html",context)
-
-def crear_venta(request,precio_prod):
     if request.method == "POST":
-        form = VentasForm(request.POST)
-        if form.is_valid():
-            venta=form.save()
-            productos = request.POST.getlist("productos[]")
-            cantidades = request.POST.getlist("cantidades[]")
-            descuentos = request.POST.getlist("descuentos[]")
-            subtotales = request.POST.getlist("subtotales[]")
+        
+        id_cli = request.POST.get('cliente')    
+        total_venta = request.POST.get('total') 
 
-            for i in range(len(productos)):
-                producto =  Productos.objects.get(id_prod=productos[i])
-                cantidad =  int(cantidades[i])
-                descuento =  float(descuentos[i])
-                subtotal =  float(subtotales[i])
+        nueva_venta = Ventas(
+            id_cli=Clientes.objects.get(id_cli=id_cli),  
+            total_venta=total_venta,
+            fecha_hs=timezone.now()
+        )
+        nueva_venta.save()
 
+         
+        productos_ids = request.POST.getlist('productos[]')
+        cantidades = request.POST.getlist('cantidades[]')
+        subtotales = request.POST.getlist('subtotales[]')
 
-                det_ventas.objects.create(
-                    id_venta=venta,
-                    id_prod=producto,
-                    cant_vendida=cantidad,
-                    subtotal_venta=subtotal,
-                    precio_prod=Productos.objects.get(precio_prod=precio_prod)
-                )
+      
+        for i in range(len(productos_ids)):
+            producto = Productos.objects.get(id_prod=productos_ids[i])
+            cantidad = int(cantidades[i])
+            subtotal = float(subtotales[i])
 
+           
+            nuevo_detalle = det_ventas(
+                id_prod=producto,
+                id_venta=nueva_venta,
+                precio_prod=producto.precio_prod,
+                subtotal_venta=subtotal,
+                cant_vendida=cantidad
+            )
+            nuevo_detalle.save()
 
-                return redirect("ventas/listar_ventas.html")
-            
+        return redirect('det_venta',id_venta=nueva_venta.id_venta)
+
     else:
-        formulario=VentasForm
+        formulario = VentasForm()
 
-    return render(request, "ventas/listar_ventas.html",{"formulario": formulario})
+    context = {
+        "empleados": empleado,
+        "clientes": cliente,
+        "productos": producto,
+        "formulario": formulario
+    }
+
+    return render(request, "ventas/crear_venta.html", context)
+
+
+
+def det_venta(request, id_venta):
+    venta = get_object_or_404(Ventas, id_venta=id_venta)
+    detalles = det_ventas.objects.filter(id_venta=venta)
+
+    context = {
+        'venta': venta,
+        'detalles': detalles
+    }
+
+    return render(request, 'ventas/detalle_ventas.html', context)
+
+
+def GenerarPdf(request,id_venta ):
+    venta=Ventas.objects.get(id_venta=id_venta)
+    detalles=det_ventas.objects.filter(id_venta=venta)
+
+    context={
+        "venta":venta,
+        "detalles":detalles,
+    }
+    template =get_template("ventas/detalle_ventas_pdf.html")
+    html=template.render(context)
+    
+    response=HttpResponse(content_type="aplication/pdf")
+    response["content-disposition"]=f'attachment; filename="DetalleVenta_{venta.id_venta}.pdf"'
+
+    pisa_status= pisa.CreatePDF(html, dest=response)
+
+    if pisa_status.err:
+        return HttpResponse(f"error: {pisa_status.err}")
+    return response

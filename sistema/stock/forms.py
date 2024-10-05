@@ -112,4 +112,4 @@ class ProductosForm(forms.ModelForm):
 class VentasForm(forms.ModelForm):
     class Meta:
         model = Ventas
-        fields="__all__"
+        fields=["id_caja","id_cli", "total_venta", "fecha_hs"]
