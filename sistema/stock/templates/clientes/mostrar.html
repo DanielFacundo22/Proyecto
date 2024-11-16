@@ -1,51 +1,85 @@
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
 {% block titulo %} Lista de Clientes {% endblock %}
 
 {% block contenido %}
+<div class="contenedor-lista">
+    <div class="titulo-lista">Lista de Clientes</div>
 
-<div class="box_principal">
-  <div class="Titulo">Lista de Clientes</div>
-  <div class="box_secundaria">
+    {% if messages %}
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            {% for message in messages %}
+            <p{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
+                {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 
-    <div class="table-responsive">
-      <table class="table table-primary">
-        <thead>
-          <tr>
-            <th scope="col">Codigo</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellido</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for cliente in clientes %}
-          <tr class="">
-            <td scope="row">{{ cliente.id_cli }}</td>
-            <td>{{ cliente.nombre_cli }}</td>
-            <td>{{ cliente.apellido_cli }}</td>
-            <td> <a name="Editar" class="btn btn-primary" href="{% url "editar_clientes" cliente.id_cli %}" role="button">Editar</a>
-              | <a name="borrar" class="btn btn-danger" href="{% url "eliminar_clientes" cliente.id_cli %}" role="button">Borrar</a>
-            </td>
-          </tr>
-          {% empty %}
-          <tr>
-            <td colspan="4" class="text-center">No existen clientes</td>  
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <div class="contenedor-tabla">
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                <tr>
+                    <td>{{ cliente.id_cli }}</td>
+                    <td>{{ cliente.nombre_cli }}</td>
+                    <td>{{ cliente.apellido_cli }}</td>
+                    <td>
+                        <a class="btn-editar" href="{% url 'editar_clientes' cliente.id_cli %}">Editar</a>
+                        <a class="btn-borrar" href="{% url 'eliminar_clientes' cliente.id_cli %}">Borrar</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="no-datos">No existen clientes</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
-  </div>
-  <a
-  name="agregar" class="btn btn-success" href="{% url "crear_clientes" %}" role="button">Agregar cliente</a
->
+    <div class="boton-agregar">
+        <a class="btn-agregar" href="{% url 'crear_clientes' %}">Agregar Cliente</a>
+    </div>
 </div>
 
+<head>
+    <link rel="stylesheet" href="/static/css/estilo_CRUD.css">
+</head>
 
-</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var modal = document.getElementById('modal');
+        var closeBtn = document.querySelector('.close');
 
+        // Verificar si el modal y el botón de cerrar existen
+        if (modal && closeBtn) {
+            // Mostrar modal si contiene mensajes
+            if (modal.querySelector('p')) {
+                modal.style.display = 'flex';
+            }
 
+            // Cerrar modal al hacer clic en la "x"
+            closeBtn.addEventListener('click', function () {
+                modal.style.display = 'none';
+            });
+
+            // Cerrar modal al hacer clic fuera del contenido
+            window.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
 
 {% endblock %}
