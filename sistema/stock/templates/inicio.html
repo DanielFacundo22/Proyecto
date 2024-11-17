@@ -4,11 +4,53 @@
 {% block titulo %}Inicio{% endblock %}
 
 {% block contenido %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h5>Las Últimas 10 Ventas</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Numero</th>
+                            <th>Fecha y Hora</th>
+                            <th>Empleado</th>
+                            <th>Cliente</th>
+                            <th>Total Venta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for venta in ventas_recientes %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ venta.fecha_hs|date:"d/m/Y H:i" }}</td>
+                            <td>{{ venta.id_caja }}</td>
+                            <td>{{ venta.id_cli.nombre }}</td>
+                            <td>{{ venta.total_venta }}</td>
+                        </tr>
+                        {% endfor %}
 
-<div id="ventasChartContainer" class="chart-container">
-    <div class="chart-label">Ventas del Mes</div>
-    <canvas id="ventasChart"></canvas>
+                        <!-- Filas vacías para completar hasta 10 -->
+                        {% for _ in filas_vacias %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td></td> 
+                            <td></td> 
+                            <td></td>
+                            <td></td> 
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
 {% if messages %}
 <div id="modal" class="modal">
     <div class="modal-content">
@@ -17,8 +59,6 @@
         <p{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
         {% endfor %}
     </div>
-</div>
-
 </div>
 {% endif %}
 
@@ -50,9 +90,11 @@
         });
     </script>
     
-    <script src="/static/scripts/inicio.js"></script>
+    
 </body>
-
+<body>
+    <script src="/static/scripts/base.js"></script>
+</body>
 <head>
     <link rel="stylesheet" href="/static/css/inicio.css">
 </head>

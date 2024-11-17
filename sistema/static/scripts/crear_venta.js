@@ -1,7 +1,33 @@
-// Confirmación de la venta
 function ConfirmarVenta() {
-    return confirm("¿Está seguro de confirmar la venta?");
+    const modal = document.getElementById('confirmModal');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    modal.style.display = 'flex';
+
+    return new Promise((resolve) => {
+        confirmBtn.onclick = () => {
+            modal.style.display = 'none';
+            resolve(true); // Confirmar la venta
+        };
+
+        cancelBtn.onclick = () => {
+            modal.style.display = 'none';
+            resolve(false); // Cancelar la venta
+        };
+    });
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const confirmButton = document.querySelector('.btn_aceptar_venta');
+    confirmButton.addEventListener('click', async (e) => {
+        e.preventDefault(); // Evitar el envío inmediato del formulario
+        const confirmed = await ConfirmarVenta();
+        if (confirmed) {
+            document.querySelector('form').submit(); // Enviar formulario si se confirma
+        }
+    });
+});
 
 document.addEventListener('DOMContentLoaded', function () {
     const tablaVenta = document.querySelector('#tabla-venta tbody');
@@ -70,4 +96,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let hoy = new Date().toISOString("en-CA").split('T')[0];
     document.getElementById('fecha_hs').value = hoy;
 });
+
+
 

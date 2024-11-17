@@ -1,20 +1,3 @@
-.articulos-views{
-    width: 10%; /* Ajusta el ancho según lo necesites */
-    max-width: 800px; /* Ancho máximo para el contenedor */
-    margin: 0 auto; /* Centra el contenedor en la página */
-    padding: 20px; /* Espaciado interno */
-    border: 1px solid #ccc; /* Borde del contenedor */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
-    background-color: #f9f9f9; /* Fondo del contenedor */
-}
-
-.chart-label {
-    text-align: center; /* Centra el texto */
-    font-size: 1.5em; /* Tamaño de la fuente */
-    margin-bottom: 10px; /* Margen inferior */
-}
-
 
 
 /* mensaje de error */
@@ -64,4 +47,26 @@
 .modal-content p {
     font-size: 1rem;
     margin: 10px 0;
+}
+
+
+
+#stockChart {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agrega sombra para un efecto moderno */
+    border-radius: 8px;
+}
+
+.card-header {
+    background-color: #f8f9fa; /* Color de fondo para el header */
+    font-weight: bold;
+}
+
+.card-body {
+    padding: 20px; /* Espaciado interno para el gráfico */
 }

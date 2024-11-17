@@ -75,77 +75,134 @@ class Productos(models.Model):
 
 #CAJA
 class ArqueoCaja(models.Model):
-    id_caja = models.AutoField(primary_key=True)
-    id_emplead = models.ForeignKey('Empleados', on_delete=models.SET_NULL, null=True, related_name="cajas")
-    fecha_hs_apertura = models.DateTimeField(verbose_name="Fecha y hora de apertura", null=False)
+    id_caja = models.AutoField(primary_key=True) 
+    # Identificador único de cada arqueo de caja, generado automáticamente.
+
+    id_emplead = models.ForeignKey('Empleados', on_delete=models.SET_NULL, null=True, related_name="cajas") 
+    # Relación con el modelo de empleados, indica qué empleado realizó el arqueo.
+    # Si se elimina el empleado, el campo queda como NULL.
+
+    fecha_hs_apertura = models.DateTimeField(verbose_name="Fecha y hora de apertura", null=False) 
+    # Fecha y hora de apertura de la caja.
+
     fecha_hs_cierre = models.DateTimeField(verbose_name="Fecha y hora de cierre", null=True, blank=True) 
-    monto_inicial = models.DecimalField(max_digits=10, decimal_places=2)
-    monto_final = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    total_ingreso = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Ingreso total del día", null=True, blank=True)
-    total_egreso = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Gastos del día", null=True, blank=True)
-    cerrado = models.BooleanField(default=False)
+    # Fecha y hora de cierre de la caja (opcional).
+
+    monto_inicial = models.DecimalField(max_digits=10, decimal_places=2) 
+    # Monto inicial con el que se abre la caja.
+
+    monto_final = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True) 
+    # Monto final calculado al cerrar la caja.
+
+    total_ingreso = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Ingreso total del día", null=True, blank=True) 
+    # Suma total de todos los ingresos relacionados con esta caja.
+
+    total_egreso = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Gastos del día", null=True, blank=True) 
+    # Suma total de todos los egresos relacionados con esta caja.
+
+    cerrado = models.BooleanField(default=False) 
+    # Indica si la caja está cerrada o no.
 
     @classmethod
     def get_arqueo_abierto(cls, empleado):
-        """Devuelve el arqueo abierto más reciente para un empleado."""
         return cls.objects.filter(id_emplead=empleado, cerrado=False).order_by('-fecha_hs_apertura').first()
-    
-    def save(self, *args, **kwargs):
-        # Guarda primero si el objeto es nuevo (no tiene ID aún)
-        if not self.pk:
-            super().save(*args, **kwargs)
+    # Método de clase que retorna la última caja abierta de un empleado.
 
-        # Recalcula montos solo si skip_calculation es False
+    def save(self, *args, **kwargs):
+        # Sobrescribe el método save para incluir cálculos automáticos.
+        if not self.pk:
+            super().save(*args, **kwargs)  # Guarda el objeto si es nuevo.
+
         if not kwargs.pop('skip_calculation', False):
-            self.calcular_montos()
-        
-        super().save(*args, **kwargs)
+            self.calcular_montos()  # Calcula montos solo si no se pasa el flag 'skip_calculation'.
+
+        super().save(*args, **kwargs)  # Llama al método save original.
 
     def calcular_montos(self):
         """Calcula los totales de ingreso y egreso y actualiza el monto final."""
         self.total_ingreso = sum(ingreso.monto for ingreso in self.ingresos.all())
         self.total_egreso = sum(egreso.monto for egreso in self.egresos.all())
         self.monto_final = self.monto_inicial + self.total_ingreso - self.total_egreso
-        # Guarda nuevamente los cambios
-        self.save(skip_calculation=True)
+        self.save(skip_calculation=True)  # Guarda el resultado omitiendo recálculo.
 
     def cerrar_caja(self):
+        """Cierra la caja calculando el balance final y marcándola como cerrada."""
         self.total_ingreso = sum(ingreso.monto for ingreso in self.ingresos.all())
         self.total_egreso = sum(egreso.monto for egreso in self.egresos.all())
         self.monto_final = self.monto_inicial + self.total_ingreso - self.total_egreso
         self.cerrado = True
-        self.fecha_hs_cierre = timezone.now()
+        self.fecha_hs_cierre = timezone.now()  # Marca la fecha y hora de cierre.
         self.save()
 
     def __str__(self):
-        return f"Caja de {self.id_emplead} - {self.id_caja} "
+        return f"Caja: {self.id_emplead} ID {self.id_caja} "
+    # Representación en texto que muestra el ID del empleado y la caja.
 
 class Ingreso(models.Model):
-    id_ingreso = models.AutoField(primary_key=True)
-    id_caja = models.ForeignKey(ArqueoCaja, on_delete=models.CASCADE, related_name='ingresos')
-    descripcion = models.CharField(max_length=255)
-    monto = models.DecimalField(max_digits=10, decimal_places=2)
-    fecha_ingreso = models.DateTimeField(auto_now_add=True)
-    tipo = models.CharField(max_length=50, choices=[('manual', 'Manual'), ('venta', 'Venta')])
+    id_ingreso = models.AutoField(primary_key=True) 
+    # Identificador único del ingreso.
+
+    id_caja = models.ForeignKey(ArqueoCaja, on_delete=models.CASCADE, related_name='ingresos') 
+    # Relación con la caja a la que pertenece el ingreso.
+
+    descripcion = models.CharField(max_length=255) 
+    # Descripción breve del ingreso.
+
+    monto = models.DecimalField(max_digits=10, decimal_places=2) 
+    # Monto del ingreso.
+
+    fecha_ingreso = models.DateTimeField(auto_now_add=True) 
+    # Fecha y hora del ingreso (automáticamente asignado al momento de creación).
+
+    tipo = models.CharField(max_length=50, choices=[('manual', 'Manual'), ('venta', 'Venta')]) 
+    # Tipo de ingreso, ya sea por venta o ingreso manual.
+
     def __str__(self):
         return f"Ingreso {self.id_ingreso} - {self.descripcion}"
+    # Representación en texto que muestra el ID y la descripción del ingreso.
 
 class Egreso(models.Model):
-    id_egreso = models.AutoField(primary_key=True)
-    id_caja = models.ForeignKey(ArqueoCaja, on_delete=models.CASCADE, related_name='egresos')
-    descripcion = models.CharField(max_length=255)
-    monto = models.DecimalField(max_digits=10, decimal_places=2)
-    fecha_egreso = models.DateTimeField(auto_now_add=True)
-    tipo = models.CharField(max_length=50, choices=[('manual', 'Manual'), ('compra', 'Compra')])
+    id_egreso = models.AutoField(primary_key=True) 
+    # Identificador único del egreso.
+
+    id_caja = models.ForeignKey(ArqueoCaja, on_delete=models.CASCADE, related_name='egresos') 
+    # Relación con la caja que realiza el egreso.
+
+    descripcion = models.CharField(max_length=255) 
+    # Descripción breve del egreso.
+
+    monto = models.DecimalField(max_digits=10, decimal_places=2) 
+    # Monto del egreso.
+
+    fecha_egreso = models.DateTimeField(auto_now_add=True) 
+    # Fecha y hora del egreso, asignado automáticamente.
+
+    tipo = models.CharField(max_length=50, choices=[('manual', 'Manual'), ('compra', 'Compra')]) 
+    # Tipo de egreso, ya sea por compra o manual.
+
     def __str__(self):
         return f"Egreso {self.id_egreso} - {self.descripcion}"
+    # Representación en texto que muestra el ID y la descripción del egreso.
 
 class Movimiento(models.Model):
-    caja = models.ForeignKey(ArqueoCaja, on_delete=models.CASCADE, related_name='movimientos')
-    fecha = models.DateTimeField(auto_now_add=True)
-    monto = models.DecimalField(max_digits=10, decimal_places=2)
-    tipo = models.CharField(max_length=50)  # Nuevo campo para el tipo de movimiento
-    descripcion = models.CharField(max_length=255, null=True, blank=True)  # Campo opcional para la descripción
+    caja = models.ForeignKey(ArqueoCaja, on_delete=models.CASCADE, related_name='movimientos') 
+    # Relación con la caja asociada al movimiento.
+
+    fecha = models.DateTimeField(auto_now_add=True) 
+    # Fecha y hora del movimiento.
+
+    monto = models.DecimalField(max_digits=10, decimal_places=2) 
+    # Monto involucrado en el movimiento.
+
+    tipo = models.CharField(max_length=50) 
+    # Tipo de movimiento (por ejemplo, ingreso o egreso).
+
+    descripcion = models.CharField(max_length=255, null=True, blank=True) 
+    # Descripción opcional del movimiento.
+
+    def __str__(self):
+        return f"Movimiento en caja {self.caja.id_caja}: {self.tipo} por {self.monto}"
+    # Representación en texto que muestra el movimiento, tipo y monto.
 
 #COMPRA
 class Compras(models.Model):

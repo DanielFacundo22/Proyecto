@@ -14,10 +14,21 @@ from itertools import chain
 from operator import attrgetter
 
 #INICIO
-@login_required
+
 def inicio(request):
-    producto=Productos.objects.all()
-    return render (request, "inicio.html",{"productos":producto})
+    # Obtén las últimas 10 ventas ordenadas por fecha
+    ventas_recientes = list(Ventas.objects.order_by('-fecha_hs')[:10])
+
+    # Calcula cuántas filas vacías se necesitan para llegar a 10
+    filas_vacias = 10 - len(ventas_recientes)
+
+    return render(request, "inicio.html", {
+        "ventas_recientes": ventas_recientes,
+        "filas_vacias": range(filas_vacias),
+    })
+
+
+
 
 #SESIONES
 def procesar_login(request):    
@@ -88,7 +99,6 @@ def apertura_arqueo(request):
 
     return render(request, 'caja/apertura_arqueo.html', {'form': form})
 
-
 @login_required
 def cerrar_arqueo(request, id_caja):
     # Obtener el registro de la caja o devolver un error 404 si no existe
@@ -137,8 +147,6 @@ def historial_arqueo(request):
         arqueo.calcular_montos()
 
     return render(request, 'caja/historial_arqueo.html', {'arqueos': arqueos, 'fecha_apertura': fecha_apertura})
-
-
 
 @login_required
 def movimientos_arqueo(request, caja_id):
@@ -191,7 +199,6 @@ def movimientos_arqueo(request, caja_id):
         'caja': caja,
         'movimientos': movimientos_unificados,
     })
-
 
 @login_required
 def obtener_monto_final(request, id_caja):
@@ -318,7 +325,6 @@ def registrar_egreso(request):
         'arqueo_abierto': arqueo_abierto
     })
 
-
 #PRODUCTOS
 @login_required
 def mostrar_articulos(request):
@@ -380,7 +386,6 @@ def crear_clientes(request):
         formulario.save()
         return redirect("mostrar_clientes")
     return render(request,"clientes/crear.html",{"formulario": formulario})
-
 
 def eliminar_clientes(request, id_cli):
     if not request.user.is_superuser:
@@ -589,7 +594,6 @@ def crear_venta(request):
         "formulario": formulario
     }
     return render(request, "ventas/crear_venta.html", context)
-
 
 @login_required
 def det_venta(request, id_venta):

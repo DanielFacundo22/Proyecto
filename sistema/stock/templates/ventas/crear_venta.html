@@ -4,6 +4,27 @@
 
 {% block contenido %}
 <div class="contenedor_ventas">
+    <!-- Modal de Confirmación Personalizado -->
+<div id="confirmModal" class="modal">
+    <div class="modal-content">
+        <p>¿Está seguro de confirmar la venta?</p>
+        <div class="modal-buttons">
+            <button id="confirmBtn" class="btn-confirm">Confirmar</button>
+            <button id="cancelBtn" class="btn-cancel">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+    {% if messages %}
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span> <!-- Este elemento debe existir -->
+        {% for message in messages %}
+        <p{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
     <!-- Caja de Venta -->
     <div class="caja_venta">
         <div class="Encabezado_venta">
@@ -127,6 +148,37 @@
 </div>
 
 <body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modal = document.getElementById('modal');
+            var closeBtn = document.querySelector('.close');
+    
+            // Verificar si el modal y el botón de cerrar existen
+            if (modal && closeBtn) {
+                // Mostrar modal si contiene mensajes
+                if (modal.querySelector('p')) {
+                    modal.style.display = 'flex';
+                }
+    
+                // Cerrar modal al hacer clic en la "x"
+                closeBtn.addEventListener('click', function () {
+                    modal.style.display = 'none';
+                });
+    
+                // Cerrar modal al hacer clic fuera del contenido
+                window.addEventListener('click', function (event) {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+    
+    
+</body>
+<body>
+
     <script src="/static/scripts/crear_venta.js"></script>
 </body>
 

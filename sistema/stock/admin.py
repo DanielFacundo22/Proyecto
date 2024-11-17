@@ -43,10 +43,13 @@ class EmpleadosInline(admin.StackedInline):
     model = Empleados
     can_delete = False
     verbose_name_plural = 'Empleados'
+
 class UserAdmin(BaseUserAdmin):
     inlines = (EmpleadosInline,)
+
 # Desregistrar el UserAdmin original
 admin.site.unregister(User)
+
 # Registrar el nuevo UserAdmin
 admin.site.register(User, UserAdmin)
 
