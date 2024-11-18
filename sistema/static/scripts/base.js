@@ -1,12 +1,12 @@
-let tiempoInactividadPermitido = 50000
-let temporizador;
+ let tiempoInactividadPermitido = 50000
+ let temporizador;
 
-function resetearTemporizador() {
+ function resetearTemporizador() {
     clearTimeout(temporizador);
     temporizador = setTimeout(cerrarSesionPorInactividad, tiempoInactividadPermitido);
-}
+ }
 
-function cerrarSesionPorInactividad() {
+ function cerrarSesionPorInactividad() {
 
     document.getElementById('logoutForm').submit();
 }

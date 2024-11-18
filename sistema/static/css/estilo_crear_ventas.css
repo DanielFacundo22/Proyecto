@@ -6,55 +6,47 @@ body {
     padding: 0;
 }
 
-h1,
-h4 {
-    color: #007bff;
+h1, h4 {
+    color: #0056b3;
     text-align: center;
     margin-bottom: 10px;
 }
 
+/* Contenedor de Ventas */
 .contenedor_ventas {
     display: flex;
     justify-content: space-between;
-    /* Espaciado uniforme entre cajas */
     gap: 20px;
-    /* Ajustar el espacio entre contenedores */
     margin: 20px auto;
     padding: 0 20px;
-    /* Añadir un pequeño padding lateral */
     max-width: 1200px;
-    /* Limitar ancho máximo en pantallas grandes */
     box-sizing: border-box;
-    /* Asegura que el padding no afecte el ancho total */
     height: 500px;
 }
 
-.caja_venta {
-    background-color: #ffffff;
-    border: 1px solid #007bff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    height: 500px;
-    width: 55%;
-
-}
-
+.caja_venta,
 .caja_productos {
     background-color: #ffffff;
     border: 1px solid #007bff;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.932);
     height: 500px;
-    width: 35%;
 }
 
+.caja_venta {
+    width: 59%;
+}
+
+.caja_productos {
+    width: 34%;
+}
+
+/* Grupo superior */
 .grupo_superior {
     height: 80px;
     display: flex;
     justify-content: space-between;
-
 }
 
 .barra_baja {
@@ -63,7 +55,6 @@ h4 {
     height: 60px;
     flex-wrap: wrap;
 }
-
 
 /* Encabezado de Venta */
 .Encabezado_venta h1 {
@@ -76,10 +67,6 @@ h4 {
     margin-bottom: 20px;
 }
 
-#grupo_superior {
-    justify-content: space-between;
-}
-
 .grupo_formularios {
     margin-bottom: 15px;
 }
@@ -90,7 +77,7 @@ h4 {
     margin-bottom: 5px;
 }
 
-.grupo_formularios input,
+.grupo_formularios input, 
 .grupo_formularios select {
     width: 80%;
     padding: 8px;
@@ -113,7 +100,7 @@ h4 {
     border-collapse: collapse;
 }
 
-#tabla-venta th,
+#tabla-venta th, 
 #tabla-venta td {
     border: 1px solid #ddd;
     padding: 10px;
@@ -133,9 +120,9 @@ h4 {
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid #ddd;
-    justify-content: space-between;
     display: flex;
-    height: 15px;
+    justify-content: space-between;
+    height: auto;
 }
 
 /* Botones */
@@ -188,18 +175,17 @@ button {
     padding: 10px;
     margin-bottom: 14px;
     margin-left: 15%;
-    /* Ajusta este valor para mover el elemento hacia la derecha */
-    border: 1px solid #007bff;
+    border: 2px solid #007bff;
     border-radius: 5px;
 }
-
 
 /* Tabla de productos disponibles */
 .contenedor-lista-productos {
     max-height: 350px;
     overflow-y: auto;
-    border: 1px solid #007bff;
+    border: 2px solid #007bff;
     border-radius: 5px;
+    width: auto; /* Por defecto se adapta al contenido */
 }
 
 .table {
@@ -207,9 +193,9 @@ button {
     border-collapse: collapse;
 }
 
-.table th,
+.table th, 
 .table td {
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     padding: 10px;
     text-align: center;
 }
@@ -220,8 +206,6 @@ button {
 }
 
 /* Scroll personalizado */
-
-
 .tabla-productos-contenedor::-webkit-scrollbar-thumb,
 .contenedor-lista-productos::-webkit-scrollbar-thumb {
     background: #007bff;
@@ -240,8 +224,7 @@ button {
         gap: 20px;
     }
 
-    .caja_venta,
-    .caja_productos {
+    .caja_venta, .caja_productos {
         width: 100%;
     }
 
@@ -252,101 +235,4 @@ button {
     button {
         width: 100%;
     }
-}
-
-
-/* Estilo para el botón de cerrar */
-.close {
-    color: black; /* Color del icono de cerrar */
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close:hover, .close:focus {
-    color: #555; /* Color más claro al pasar el mouse */
-    text-decoration: none;
-}
-
-/* Estilo para los mensajes dentro del modal */
-.modal-content p {
-    font-size: 1rem;
-    margin: 10px 0;
-}
-
-
-
-#stockChart {
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto;
-}
-
-.card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agrega sombra para un efecto moderno */
-    border-radius: 8px;
-}
-
-.card-header {
-    background-color: #f8f9fa; /* Color de fondo para el header */
-    font-weight: bold;
-}
-
-.card-body {
-    padding: 20px; /* Espaciado interno para el gráfico */
-}
-
-
-
-/* Modal de confirmación personalizado */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.modal-buttons {
-    margin-top: 15px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.modal-buttons button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.btn-confirm {
-    background-color: #28a745;
-    color: white;
-}
-
-.btn-confirm:hover {
-    background-color: #218838;
-}
-
-.btn-cancel {
-    background-color: #dc3545;
-    color: white;
-}
-
-.btn-cancel:hover {
-    background-color: #c82333;
 }

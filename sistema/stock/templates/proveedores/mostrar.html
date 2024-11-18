@@ -2,11 +2,11 @@
 {% block titulo %} Lista de Proveedores {% endblock %}
 
 {% block contenido %}
-<div class="contenedor-lista">
-    <div class="titulo-lista">Lista de Proveedores</div>
+<div class="contenedor-lista restringuido">
+    <div class="titulo-lista restringuido">Lista de Proveedores</div>
 
-    <div class="contenedor-tabla">
-        <table class="tabla">
+    <div class="contenedor-tabla restringuido">
+        <table class="tabla restringuido">
             <thead>
                 <tr>
                     <th>Código</th>
@@ -26,23 +26,22 @@
                     <td>{{ proveedor.correo_prov }}</td>
                     <td>{{ proveedor.tel_prov }}</td>
                     <td>
-                        <a class="btn-editar" href="{% url 'editar_proveedores' proveedor.id_prov %}">Editar</a>
-                        <a class="btn-borrar" href="{% url 'eliminar_proveedores' proveedor.id_prov %}">Borrar</a>
+                        <a class="btn-editar restringuido" href="{% url 'editar_proveedores' proveedor.id_prov %}">Editar</a>
+                        <a class="btn-borrar restringuido" href="{% url 'eliminar_proveedores' proveedor.id_prov %}">Borrar</a>
                     </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="6" class="no-datos">No existen proveedores</td>
+                    <td colspan="6" class="no-datos restringuido">No existen proveedores</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <div class="boton-agregar">
-        <a class="btn-agregar" href="{% url 'crear_proveedores' %}">Agregar Proveedor</a>
+    <div class="boton-agregar restringuido">
+        <a class="btn-agregar restringuido" href="{% url 'crear_proveedores' %}">Agregar Proveedor</a>
     </div>
 </div>
-
 
 {% endblock %}

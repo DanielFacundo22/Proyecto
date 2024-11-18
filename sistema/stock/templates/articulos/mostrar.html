@@ -3,43 +3,77 @@
 {% block titulo %} Lista de Productos {% endblock %}
 
 {% block contenido %}
-<div id="productos-view">
-    <h4>Productos</h4>
+<div id="productos-view" class="restringuido">
+    {% if messages %}
+    <div id="modal" class="modal restringuido">
+        <div class="modal-content restringuido">
+            <span class="close restringuido">&times;</span>
+            {% for message in messages %}
+            <p{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    <h4 class="restringuido">Productos</h4>
 
     <!-- Contenedor de tabla con scroll -->
-    <div class="table-scroll">
-        <table class="productos-table">
+    <div class="table-scroll restringuido">
+        <table class="productos-table restringuido">
             <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Stock Actual</th>
-                    <th>Acciones</th>
+                <tr class="restringuido">
+                    <th class="restringuido">Código</th>
+                    <th class="restringuido">Nombre</th>
+                    <th class="restringuido">Precio</th>
+                    <th class="restringuido">Stock Actual</th>
+                    <th class="restringuido">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 {% for producto in productos %}
-                <tr>
-                    <td>{{ producto.id_prod }}</td>
-                    <td>{{ producto.nombre_prod }}</td>
-                    <td>{{ producto.precio_prod }}</td>
-                    <td>{{ producto.stock_actual }}</td>
-                    <td>
-                        <a class="btn-editar" href="{% url 'editar_articulos' producto.id_prod %}">Editar</a>
+                <tr class="restringuido">
+                    <td class="restringuido">{{ producto.id_prod }}</td>
+                    <td class="restringuido">{{ producto.nombre_prod }}</td>
+                    <td class="restringuido">{{ producto.precio_prod }}</td>
+                    <td class="restringuido">{{ producto.stock_actual }}</td>
+                    <td class="restringuido">
+                        <a class="btn-editar restringuido" href="{% url 'editar_articulos' producto.id_prod %}">Editar</a>
                         |
-                        <a class="btn-borrar" href="{% url 'eliminar_producto' producto.id_prod %}">Borrar</a>
+                        <a class="btn-borrar restringuido" href="{% url 'eliminar_producto' producto.id_prod %}">Borrar</a>
                     </td>
                 </tr>
                 {% empty %}
-                <tr>
-                    <td colspan="5" class="no-data">No hay artículos disponibles.</td>
+                <tr class="restringuido">
+                    <td colspan="5" class="no-data restringuido">No hay artículos disponibles.</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <a class="btn-agregar" href="{% url 'crear_articulos' %}">Agregar producto</a>
+    <a class="btn-agregar restringuido" href="{% url 'crear_articulos' %}">Agregar producto</a>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var modal = document.getElementById('modal');
+        var closeBtn = document.querySelector('.close');
+
+        if (modal && closeBtn) {
+            if (modal.querySelector('p')) {
+                modal.style.display = 'flex';
+            }
+
+            closeBtn.addEventListener('click', function () {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
+
 {% endblock %}

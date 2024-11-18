@@ -7,7 +7,7 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-header">
-            <h5>Las Últimas 10 Ventas</h5>
+            <h3>Últimas 10 Ventas</h3>
         </div>
         <div class="card-body">
             <div class="table-container">
@@ -27,7 +27,14 @@
                             <td>{{ forloop.counter }}</td>
                             <td>{{ venta.fecha_hs|date:"d/m/Y H:i" }}</td>
                             <td>{{ venta.id_caja }}</td>
-                            <td>{{ venta.id_cli.nombre }}</td>
+                            <td>
+                                {% if venta.id_cli %}
+                                    {{ venta.id_cli.nombre_cli }} {{ venta.id_cli.apellido_cli }}
+                                {% else %}
+                                  
+                                {% endif %}
+                            </td>
+                            
                             <td>{{ venta.total_venta }}</td>
                         </tr>
                         {% endfor %}

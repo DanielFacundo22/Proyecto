@@ -3,15 +3,13 @@
 {% block titulo %} Agregar nuevo cliente {% endblock %}
 
 {% block contenido %}
-{% if formulario.errors %}
-{% endif %}
-<div class="card">
-  <div class="card-header">Crear un cliente</div>
-  <div class="card-body">
-    <h4 class="card-title">Descripción</h4>
-    <form enctype="multipart/form-data" method="post"> <!-- Asegúrate de que este form esté presente -->
+<div id="cliente_card" class="card restringuido">
+  <div id="cliente_card_header" class="card-header restringuido">Crear un cliente</div>
+  <div id="cliente_card_body" class="card-body restringuido">
+    <h4 id="cliente_card_title" class="card-title restringuido">Descripción</h4>
+    <form enctype="multipart/form-data" method="post" class="restringuido"> <!-- Formulario protegido -->
       {% csrf_token %}
-      {% include "clientes/form.html" %} <!-- Asegúrate de que la ruta al form sea correcta -->
+      {% include "clientes/form.html" %} <!-- Ruta hacia el formulario del cliente -->
     </form>
   </div>
 </div>

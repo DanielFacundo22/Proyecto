@@ -2,11 +2,11 @@
 {% block titulo %} Lista de Empleados {% endblock %}
 
 {% block contenido %}
-<div class="contenedor-lista">
-    <div class="titulo-lista">Lista de Empleados</div>
+<div class="contenedor-lista restringuido">
+    <div class="titulo-lista restringuido">Lista de Empleados</div>
 
-    <div class="contenedor-tabla">
-        <table class="tabla">
+    <div class="contenedor-tabla restringuido">
+        <table class="tabla restringuido">
             <thead>
                 <tr>
                     <th>Código</th>
@@ -22,25 +22,23 @@
                     <td>{{ empleado.nombre_emplead }}</td>
                     <td>{{ empleado.apellido_emplead }}</td>
                     <td>
-                        <a class="btn-editar" href="{% url 'editar_empleados' empleado.id_emplead %}">Editar</a>
-                        <a class="btn-borrar" href="{% url 'eliminar_empleados' empleado.id_emplead %}">Borrar</a>
-                        <a class="btn-acciones" href="{% url 'ver_acciones_empleados' empleado.id_emplead %}">ver
-                            acciones</a>
+                        <a class="btn-editar restringuido" href="{% url 'editar_empleados' empleado.id_emplead %}">Editar</a>
+                        <a class="btn-borrar restringuido" href="{% url 'eliminar_empleados' empleado.id_emplead %}">Borrar</a>
+                        <a class="btn-acciones restringuido" href="{% url 'ver_acciones_empleados' empleado.id_emplead %}">Ver acciones</a>
                     </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="4" class="no-datos">No existen empleados</td>
+                    <td colspan="4" class="no-datos restringuido">No existen empleados</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <div class="boton-agregar">
-        <a class="btn-agregar" href="{% url 'crear_empleados' %}">Agregar Empleado</a>
+    <div class="boton-agregar restringuido">
+        <a class="btn-agregar restringuido" href="{% url 'crear_empleados' %}">Agregar Empleado</a>
     </div>
 </div>
-
 
 {% endblock %}

@@ -14,7 +14,6 @@ from itertools import chain
 from operator import attrgetter
 
 #INICIO
-
 def inicio(request):
     # Obtén las últimas 10 ventas ordenadas por fecha
     ventas_recientes = list(Ventas.objects.order_by('-fecha_hs')[:10])
@@ -26,8 +25,6 @@ def inicio(request):
         "ventas_recientes": ventas_recientes,
         "filas_vacias": range(filas_vacias),
     })
-
-
 
 
 #SESIONES
@@ -331,8 +328,11 @@ def mostrar_articulos(request):
     producto=Productos.objects.all()
     return render(request, "articulos/mostrar.html",{"productos":producto})
 
-@permission_required('stock.view_articulo')
+
 def editar_articulos(request,id_prod):
+    if not request.user.is_superuser:
+        messages.error(request, "No tienes permiso para realizar esta acción.")
+        return redirect('mostrar_articulos')
     producto = Productos.objects.get(id_prod=id_prod)
     formulario = ProductosForm(request.POST or None, request.FILES or None, instance=producto)
 
@@ -353,8 +353,11 @@ def crear_articulos(request):
             return redirect("mostrar_articulos")
     return render(request, "articulos/crear.html", {"formulario": formulario})
 
-@permission_required('stock.view_articulo')
+
 def eliminar_productos(request,id_prod):
+    if not request.user.is_superuser:
+        messages.error(request, "No tienes permiso para realizar esta acción.")
+        return redirect('mostrar_articulos')
     producto = Productos.objects.get(id_prod=id_prod)
     producto.delete()
     return redirect("mostrar_articulos")
@@ -364,10 +367,9 @@ def mostrar_clientes(request):
     cliente=Clientes.objects.all()
     return render(request, "clientes/mostrar.html",{"clientes":cliente})
 
-
 def editar_clientes(request, id_cli):
     if not request.user.is_superuser:
-        messages.error(request, "No tienes permiso para editar provedores")
+        messages.error(request, "No tienes permiso para realizar esta acción.")
         return redirect('mostrar_clientes')
     cliente = Clientes.objects.get(id_cli=id_cli)
     formulario = ClientesForm(request.POST or None, request.FILES or None, instance=cliente)
@@ -389,7 +391,7 @@ def crear_clientes(request):
 
 def eliminar_clientes(request, id_cli):
     if not request.user.is_superuser:
-        messages.error(request, "No tienes permiso para eliminar provedores")
+        messages.error(request, "No tienes permiso para realizar esta acción")
         return redirect('mostrar_clientes')
     cliente = Clientes.objects.get(id_cli=id_cli)
     cliente.delete()
@@ -399,7 +401,7 @@ def eliminar_clientes(request, id_cli):
 @login_required
 def mostrar_empleados(request):
     if not request.user.is_superuser:
-        messages.error(request, "No tienes permiso para ver la lista de empleados")
+        messages.error(request, "No tienes permiso para realizar esta acción")
         return redirect('inicio')
     empleado=Empleados.objects.all()
     return render(request,"empleados/mostrar.html",{"empleados":empleado})
@@ -462,7 +464,7 @@ def registrar_accion(empleado, proceso):
 @login_required
 def mostrar_proveedores(request):
     if not request.user.is_superuser:
-        messages.error(request, "No tienes permiso para ver la lista de proveedores")
+        messages.error(request, "No tienes permiso para realizar esta acción")
         return redirect('inicio')
 
     proveedor= Proveedores.objects.all()
@@ -518,7 +520,13 @@ def crear_venta(request):
     if not arqueo_abierto:
         messages.error(request, "No tienes una caja abierta. Debes abrir una caja primero.")
         return redirect('apertura_arqueo')
-
+    
+    if request.method == 'POST':
+        cliente_id = request.POST.get('cliente', None)  # Puede ser None si no se seleccionó un cliente
+        if cliente_id:
+            cliente = Clientes.objects.get(id_cli=cliente_id)
+        else:
+            cliente = None  # Venta sin cliente
     # Validar si el usuario es administrador
     if request.user.is_staff:
         messages.error(request, "No tienes un empleado asociado para hacer ventas.")
@@ -548,7 +556,11 @@ def crear_venta(request):
             producto = Productos.objects.get(id_prod=productos_ids[i])
             cantidad = int(cantidades[i])
             subtotal = float(subtotales[i])
-
+            
+            if not producto or not cantidad:
+                messages.error(request, "No se puede confirmar la venta sin productos.")
+                return redirect('crear_venta')  
+            
             if cantidad > producto.stock_actual:
                 messages.error(request, f"Stock insuficiente para el producto {producto.nombre_prod}. Disponible: {producto.stock_actual}.")
                 return redirect("crear_venta")
@@ -727,8 +739,10 @@ def det_compra(request, id_compra):
     return render(request, 'compras/det_compras.html', context)
 
 @login_required
-@permission_required("stock.view_empleado")
 def historial_compra(request):
+    if not request.user.is_superuser:
+        messages.error(request, "No tienes permiso para realizar esta acción.")
+        return redirect('inicio')
     # Obtener todas las compras ordenadas por fecha (la más reciente primero)
     compras = Compras.objects.all().order_by('-fecha_compra')
 

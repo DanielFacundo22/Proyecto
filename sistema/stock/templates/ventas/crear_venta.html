@@ -4,27 +4,18 @@
 
 {% block contenido %}
 <div class="contenedor_ventas">
-    <!-- Modal de Confirmación Personalizado -->
-<div id="confirmModal" class="modal">
-    <div class="modal-content">
-        <p>¿Está seguro de confirmar la venta?</p>
-        <div class="modal-buttons">
-            <button id="confirmBtn" class="btn-confirm">Confirmar</button>
-            <button id="cancelBtn" class="btn-cancel">Cancelar</button>
-        </div>
-    </div>
-</div>
+
 
     {% if messages %}
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span> <!-- Este elemento debe existir -->
-        {% for message in messages %}
-        <p{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
-        {% endfor %}
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span> <!-- Este elemento debe existir -->
+            {% for message in messages %}
+            <p{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
+            {% endfor %}
+        </div>
     </div>
-</div>
-{% endif %}
+    {% endif %}
     <!-- Caja de Venta -->
     <div class="caja_venta">
         <div class="Encabezado_venta">
@@ -42,24 +33,24 @@
                         <label for="fecha">Fecha:</label>
                         <input type="date" id="fecha_hs" name="fecha_hs" readonly>
                     </div>
-
+            
                     <!-- SELECCIÓN DEL VENDEDOR -->
                     <div class="grupo_formularios">
                         <label for="vendedor">Vendedor:</label>
                         <input type="text" value="{{ request.user.username }}" readonly>
                     </div>
                 </div>
-
-                <!-- SELECCIÓN DEL CLIENTE -->
-                <div class="grupo_formularios">
-                    <label>Cliente:</label>
-                    <select name="cliente" id="cliente">
-                        {% for cliente in clientes %}
-                        <option value="{{ cliente.id_cli }}">{{ cliente.nombre_cli }} {{ cliente.apellido_cli }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </div>
+            
+<!-- SELECCIÓN DEL CLIENTE -->
+<div class="grupo_formularios">
+    <label>Cliente:</label>
+    <select name="cliente" id="cliente">
+        <option value=""></option> <!-- Opción vacía -->
+        {% for cliente in clientes %}
+        <option value="{{ cliente.id_cli }}">{{ cliente.nombre_cli }} {{ cliente.apellido_cli }}</option>
+        {% endfor %}
+    </select>
+</div>
 
             </div>
             <!-- Contenedor con scroll para la tabla de productos agregados -->
@@ -74,29 +65,28 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-
+                   
                     <tbody>
                         <!-- Aquí se agregarán los productos seleccionados para la venta -->
                     </tbody>
-
+                   
                 </table>
             </div>
-            <div class="barra_baja">
+          <div class="barra_baja">
                 <!-- Botones de Acción -->
                 <div class="buttons">
-                    <button class="btn_aceptar_venta" type="submit" value="Guardar"
-                        onclick="return ConfirmarVenta()">Aceptar</button>
-                    <button class="btn_salir" type="button" onclick=window.location.href='{% url ' inicio'
-                        %}'>Salir</button>
+                    <button class="btn_aceptar_venta" type="submit" value="Guardar" onclick="return ConfirmarVenta()">Aceptar</button>
+
+                    <button class="btn_salir" type="button" onclick=window.location.href='{% url 'inicio' %}'>Salir</button>
                 </div>
-                <!-- Total de la Venta -->
+               <!-- Total de la Venta -->
                 <div class="total">
-                    <label for="total">Total:</label>
-                    <input type="number" id="total" name="total" readonly value="0">
+                 <label for="total">Total:</label>
+                  <input type="number" id="total" name="total" readonly value="0">
                 </div>
+                
 
-
-            </div>
+          </div>
         </form>
     </div>
 
@@ -105,7 +95,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Productos</h4>
-
+                
                 <!-- Barra de búsqueda -->
                 <input type="text" id="buscarProducto" class="form-control" placeholder="Buscar producto...">
 
@@ -127,9 +117,7 @@
                                 <td>{{ producto.nombre_prod }}</td>
                                 <td>{{ producto.precio_prod }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-success agregar-producto"
-                                        data-id="{{ producto.id_prod }}" data-nombre="{{ producto.nombre_prod }}"
-                                        data-precio="{{ producto.precio_prod }}">
+                                    <button type="button" class="btn btn-success agregar-producto" data-id="{{ producto.id_prod }}" data-nombre="{{ producto.nombre_prod }}" data-precio="{{ producto.precio_prod }}">
                                         Añadir
                                     </button>
                                 </td>
@@ -147,42 +135,27 @@
     </div>
 </div>
 
+<head>
+    <link rel="stylesheet" href="/static/css/estilo_crear_ventas.css"> 
+</head>
 <body>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var modal = document.getElementById('modal');
-            var closeBtn = document.querySelector('.close');
-    
-            // Verificar si el modal y el botón de cerrar existen
-            if (modal && closeBtn) {
-                // Mostrar modal si contiene mensajes
-                if (modal.querySelector('p')) {
-                    modal.style.display = 'flex';
-                }
-    
-                // Cerrar modal al hacer clic en la "x"
-                closeBtn.addEventListener('click', function () {
-                    modal.style.display = 'none';
-                });
-    
-                // Cerrar modal al hacer clic fuera del contenido
-                window.addEventListener('click', function (event) {
-                    if (event.target === modal) {
-                        modal.style.display = 'none';
-                    }
-                });
-            }
-        });
+        function ConfirmarVenta() {
+    const tablaVenta = document.querySelector('#tabla-venta tbody');
+
+    // Validar que haya al menos un producto en la tabla
+    if (tablaVenta.children.length === 0) {
+        alert('No puedes confirmar una venta sin agregar productos.');
+        return false; // Evita el envío del formulario
+    }
+
+    // Si hay productos, mostrar el mensaje de confirmación
+    return confirm("¿Está seguro de confirmar la venta?");
+}
+
     </script>
     
-    
-</body>
-<body>
-
     <script src="/static/scripts/crear_venta.js"></script>
 </body>
 
-<head>
-    <link rel="stylesheet" href="/static/css/estilo_crear_ventas.css">
-</head>
 {% endblock %}

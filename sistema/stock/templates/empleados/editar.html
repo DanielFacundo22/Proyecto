@@ -3,17 +3,11 @@
 {% block titulo %} Editar Empleado {% endblock %}
 
 {% block contenido %}
-
-<div class="card">
-
-  <div class="card-body">
-    <h4 class="card-title">Agregar Empleado</h4>
-
-    <!-- Incluye el formulario -->
+<div id="editar_empleado_card" class="card restringuido">
+  <div id="editar_empleado_card_body" class="card-body restringuido">
+    <h4 id="editar_empleado_card_title" class="card-title restringuido">Editar Empleado</h4>
     {% include "empleados/form.html" %}
-
   </div>
 </div>
-
 
 {% endblock %}

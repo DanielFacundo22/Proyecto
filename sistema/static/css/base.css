@@ -260,82 +260,87 @@ html {
     }
 }
 
-
-
-/*tabla de ultimas ventas
-/* Contenedor principal de la tabla */
-.table-container {
-    max-height: 400px; /* Ajusta la altura máxima */
-    overflow-y: auto; /* Habilita el scroll vertical si es necesario */
-    border: 1px solid #ddd; /* Borde general para el contenedor */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-    background-color: #ffffff; /* Fondo blanco */
-    padding: 10px; /* Espaciado interno */
-}
-
-/* Estilo de la tabla */
-.table-container table {
-    width: 100%; /* Tabla ocupa todo el ancho del contenedor */
-    border-collapse: collapse; /* Bordes colapsados para un diseño limpio */
-}
-
-/* Encabezado de la tabla */
-.table-container th {
-    background-color: #007bff; /* Azul moderno para encabezado */
-    color: white; /* Texto blanco en encabezado */
-    text-align: left;
-    text-transform: uppercase; /* Texto en mayúsculas */
-    padding: 12px 15px;
-    font-size: 14px;
-    border: 1px solid #ddd; /* Líneas visibles entre columnas */
-}
-
-/* Celdas de la tabla */
-.table-container td {
-    padding: 12px 15px;
-    font-size: 14px;
-    border: 1px solid #ddd; /* Líneas visibles entre filas */
-}
-
-/* Alternar colores de las filas */
-.table-container tr:nth-child(even) {
-    background-color: #f9f9f9; /* Color de fondo para filas pares */
-}
-
-.table-container tr:nth-child(odd) {
-    background-color: #ffffff; /* Fondo blanco para filas impares */
-}
-
-/* Efecto hover en filas */
-.table-container tr:hover td {
-    background-color: #f1f3f5; /* Fondo más claro al pasar el cursor */
-    transition: background-color 0.3s ease;
-}
-
-/* Efecto en celdas vacías */
-.table-container td:empty {
-    background-color: #f5f5f5; /* Color más claro para celdas vacías */
-    color: #888; /* Texto gris claro */
-}
-
-/* Encabezado de la card */
-.card-header {
-    background-color: #0056b3; /* Azul más oscuro */
-    color: white; /* Texto blanco */
-    text-align: center; /* Centrado */
-    font-weight: bold;
-    padding: 10px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-}
-
-/* Card general */
-.card {
-    border: 1px solid #ddd;
+/* Contenedor principal */
+.contenedor_base {
+    margin-left: 270px;
+    padding: 30px;
+    background-color: #ffffff;
     border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    /* Más profundidad en el contenedor principal */
 }
 
+/* Pie de página */
+.logo_abajo {
+    background: linear-gradient(90deg, #0056b3, #007bff);
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 1.1em;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
 
+/* Media queries para pantallas pequeñas */
+@media (max-width: 768px) {
+    .barra_superior {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .menu_superior {
+        flex-direction: column;
+    }
+
+    .contenedor_base {
+        margin-left: 0;
+        padding: 20px;
+    }
+}
+
+/* Scroll suave para barras */
+.barra_lateral::-webkit-scrollbar {
+    width: 8px;
+}
+
+.barra_lateral::-webkit-scrollbar-thumb {
+    background-color: #495057;
+    border-radius: 4px;
+}
+
+.barra_lateral::-webkit-scrollbar-track {
+    background: #343a40;
+}
+
+/* Tablas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+table th,
+table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #007bff;
+    color: white;
+    text-transform: uppercase;
+}
+
+table tr:hover td {
+    background-color: #f1f3f5;
+    /* Fondo ligeramente más claro */
+    transition: background-color 0.3s ease;
+    /* Animación suave */
+}

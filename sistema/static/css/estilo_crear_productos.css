@@ -1,15 +1,15 @@
-/* Contenedor principal para tarjetas */
-.card.restringuido {
+/* Contenedor principal para formularios restringuido */
+#pa_card.restringuido {
     background-color: #ffffff;
     border: 1px solid #007bff;
     border-radius: 10px;
-    max-width: 95%; /* Ocupa el 95% del ancho de la pantalla */
+    max-width: 95%; /* Para hacerlo más amplio */
     margin: 30px auto;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
-.card-header.restringuido {
+#pa_card_header.restringuido {
     background-color: #007bff;
     color: #ffffff;
     padding: 15px;
@@ -18,11 +18,11 @@
     text-align: center;
 }
 
-.card-body.restringuido {
+#pa_card_body.restringuido {
     padding: 20px;
 }
 
-.card-title.restringuido {
+#pa_card_title.restringuido {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
@@ -30,14 +30,7 @@
     text-align: center;
 }
 
-.card-footer.restringuido {
-    background-color: #f8f9fa;
-    padding: 10px;
-    text-align: center;
-    color: #6c757d;
-}
-
-/* Formularios */
+/* Formulario restringuido */
 form.restringuido {
     display: flex;
     flex-direction: column;
@@ -51,9 +44,9 @@ form.restringuido label {
     color: #333;
 }
 
-form.restringuido input[type="text"],
-form.restringuido input[type="number"],
-form.restringuido input[type="email"],
+form.restringuido input[type="text"], 
+form.restringuido input[type="number"], 
+form.restringuido input[type="email"], 
 form.restringuido textarea {
     width: 100%;
     padding: 10px;
@@ -64,7 +57,7 @@ form.restringuido textarea {
     transition: border 0.3s ease;
 }
 
-form.restringuido input:focus,
+form.restringuido input:focus, 
 form.restringuido textarea:focus {
     border-color: #0056b3;
     background-color: #ffffff;
@@ -87,9 +80,9 @@ form.restringuido .btn:hover {
     background-color: #218838;
 }
 
-/* Listas de clientes, empleados y proveedores */
-.contenedor-lista.restringuido {
-    max-width: 95%; /* Ocupa el 95% del ancho de la pantalla */
+/* Tablas de productos restringuido */
+#productos-view.restringuido {
+    width: 95%;
     margin: 30px auto;
     padding: 20px;
     background-color: #ffffff;
@@ -98,16 +91,19 @@ form.restringuido .btn:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.titulo-lista.restringuido {
+#productos-view.restringuido h4 {
+    text-align: center;
     font-size: 22px;
-    font-weight: bold;
     color: #007bff;
     margin-bottom: 20px;
-    text-align: center;
 }
 
-/* Tablas */
-.tabla.restringuido {
+/* Tabla de productos restringuido */
+.table-scroll.restringuido {
+    overflow-x: auto; /* Habilitar scroll horizontal si es necesario */
+}
+
+.productos-table.restringuido {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
@@ -117,41 +113,41 @@ form.restringuido .btn:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.tabla.restringuido th,
-.tabla.restringuido td {
+.productos-table.restringuido th, 
+.productos-table.restringuido td {
     padding: 12px 15px;
     text-align: center;
     border: 1px solid #ddd;
 }
 
-.tabla.restringuido th {
+.productos-table.restringuido th {
     background-color: #007bff;
     color: white;
     text-transform: uppercase;
 }
 
-.tabla.restringuido tr:nth-child(even) {
+.productos-table.restringuido tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-.tabla.restringuido tr:nth-child(odd) {
+.productos-table.restringuido tr:nth-child(odd) {
     background-color: #f2f2f2;
 }
 
-.tabla.restringuido tr:hover {
+.productos-table.restringuido tr:hover {
     background-color: #e6f7ff;
 }
 
-.no-datos.restringuido {
+.no-data.restringuido {
     text-align: center;
     font-size: 1.2em;
     color: #999;
 }
 
-/* Botones */
-.btn-editar.restringuido,
-.btn-borrar.restringuido,
-.btn-acciones.restringuido {
+/* Botones restringuido */
+.btn-editar.restringuido, 
+.btn-borrar.restringuido, 
+.btn-agregar.restringuido {
     padding: 8px 12px;
     border-radius: 5px;
     text-decoration: none;
@@ -175,14 +171,6 @@ form.restringuido .btn:hover {
     background-color: #c82333;
 }
 
-.btn-acciones.restringuido {
-    background-color: #17a2b8;
-}
-
-.btn-acciones.restringuido:hover {
-    background-color: #138496;
-}
-
 .btn-agregar.restringuido {
     background-color: #007bff;
     color: white;
@@ -190,8 +178,9 @@ form.restringuido .btn:hover {
     border-radius: 5px;
     text-decoration: none;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    text-align: center;
     display: inline-block;
+    margin-top: 20px;
+    text-align: center;
 }
 
 .btn-agregar.restringuido:hover {
@@ -199,7 +188,7 @@ form.restringuido .btn:hover {
     transform: scale(1.05);
 }
 
-/* Modal */
+/* Modal restringuido */
 .modal.restringuido {
     display: none;
     position: fixed;
@@ -237,24 +226,39 @@ form.restringuido .btn:hover {
     cursor: pointer;
 }
 
-/* Responsivo */
+/* Scroll personalizado restringuido */
+.table-scroll.restringuido::-webkit-scrollbar {
+    width: 10px;
+}
+
+.table-scroll.restringuido::-webkit-scrollbar-thumb {
+    background: #007bff;
+    border-radius: 5px;
+}
+
+.table-scroll.restringuido::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Responsivo restringido */
 @media (max-width: 768px) {
-    .contenedor-lista.restringuido {
+    #productos-view.restringuido {
+        width: 100%;
         padding: 10px;
     }
 
-    .tabla.restringuido th,
-    .tabla.restringuido td {
-        padding: 8px;
+    .table-scroll.restringuido {
+        max-height: 300px;
+    }
+
+    .productos-table.restringuido th, 
+    .productos-table.restringuido td {
+        padding: 10px;
         font-size: 0.9em;
     }
 
     .btn-agregar.restringuido {
         width: 100%;
+        margin-top: 10px;
     }
 }
-
-
-
-
-

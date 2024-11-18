@@ -3,13 +3,12 @@
 {% block titulo %} Editar Cliente {% endblock %}
 
 {% block contenido %}
-<div class="card">
-  <div class="card-header">Editar Cliente</div>
-  <div class="card-body">
-    <h4 class="card-title">Información del Cliente</h4>
+<div id="editar_cliente_card" class="card restringuido">
+  <div id="editar_cliente_card_header" class="card-header restringuido">Editar Cliente</div>
+  <div id="editar_cliente_card_body" class="card-body restringuido">
+    <h4 id="editar_cliente_card_title" class="card-title restringuido">Información del Cliente</h4>
     {% include "clientes/form.html" %}
   </div>
-
 </div>
 
 {% endblock %}
